@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <head>
 	<style type="text/css">
-		.footer{
+		.footer{			
 			background-color:#0b0e1e;
 			color:#fff;
 		}

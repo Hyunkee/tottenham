@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
-	<script>
-		isChecked = 0;
+	<script>		
 		$(document).ready(function(){
 			$('.logo').click(function(){				
 				$('.navbar_logo').addClass('display-none');
@@ -25,6 +24,7 @@
 		}
 		.navbar_logo{
 			position:fixed;
+			top:0;
 			width:100%;
 			z-index:20;
 		}		
@@ -41,7 +41,7 @@
 			margin-left:auto;
 			margin-right:auto;
 			z-index:2;
-			left:15em;
+			left:17.4em;
 		}
 		.logo-box{
 			position:relative;			
@@ -110,11 +110,9 @@
 </head>
 <div class="navbar_logo">
 	<nav class="navbar navbar-expand-md navbar-bgcolor navbar-dark">	
-		<div class="container flex-row-reverse">				
-		  	<a class="navbar-brand" href="#">Login</a>
-		  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-		    	<span class="navbar-toggler-icon"></span>
-		  	</button>	  	
+		<div class="container flex-row-reverse">							
+		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signin">Login</a>
+		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>		  		  	
 		</div> 
 	</nav>
 	<div class="logo">
