@@ -81,9 +81,7 @@ public class HomeController {
 	    return mv;
 	}
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
-	public String memberModifyPost(MemberVO mVo, String oldPw) {
-		System.out.println(mVo);
-		System.out.println(oldPw);
+	public String memberModifyPost(MemberVO mVo, String oldPw) {		
 		if(memberService.modify(mVo,oldPw))
 			return "redirect:/";
 		else {

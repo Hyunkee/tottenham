@@ -18,6 +18,10 @@
 		a{
 			text-decoration:none;
 			color:white;
+		}
+		p{
+			margin:0;
+			padding:0;
 		}		
 		.container{
 			max-width:1024px;
@@ -105,6 +109,9 @@
 			color:#e0e721;
 			font-weight:lighter;
 		}
+		.menu_content>.content_link>.cl.cl_find{
+			display:inline-block;
+		}		
 		.display-block{
 			display:block;
 		}
@@ -164,6 +171,9 @@
 				<a class="cl cl_board" href="#">Board</a>
 			</div>
 			<div class="content_link">
+				<p class="cl cl_find">Find</p><a class="cl lighter cl_find" href="#">ID</a><a class="cl lighter cl_find" href="#">PW</a>
+			</div>
+			<div class="content_link">
 				<c:if test="${user eq null}">
 					<a class="cl cl_board" href="<%=request.getContextPath()%>/member/register">Register</a>
 				</c:if>	
@@ -172,8 +182,7 @@
 		<div class="menu_content mypage_content">
 			<c:if test="${user ne null}">
 				<div class="mypage content_link">
-					<a class="cl" href="#">MY PAGE</a>
-					<a class="cl lighter" href="#">Find ID/PW</a>
+					<a class="cl" href="#">MY PAGE</a>					
 					<a class="cl lighter" href="<%=request.getContextPath()%>/member/modify">Modify</a>
 					<a class="cl lighter" href="#">Delete</a>
 				</div>
