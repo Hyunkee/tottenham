@@ -101,6 +101,10 @@
 			font-size:36px;
 			font-weight: 700;
 		}
+		.menu_content>.content_link>.cl.lighter{
+			color:#e0e721;
+			font-weight:lighter;
+		}
 		.display-block{
 			display:block;
 		}
@@ -111,18 +115,21 @@
 </head>
 <div class="navbar_logo">
 	<nav class="navbar navbar-expand-md navbar-bgcolor navbar-dark">	
-		<div class="container flex-row-reverse">
-			<c:if test="${user eq null}">						
-		  		<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signin">Login</a>
-	  		</c:if>
-	  		<c:if test="${user ne null}">	  							
-	  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/mypage">${user.id}님 환영합니다!</a>
-  			</c:if>
-	  		<c:if test="${user ne null}">	  							
-	  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signout">Logout</a>
-  			</c:if>	  		
-		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>	
-		  	  		  	
+		<div class="container flex-row-reverse" style="display:block;">
+			<div class="float-left">
+				<a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>
+			</div>
+			<div class="float-right">
+				<c:if test="${user eq null}">						
+			  		<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signin">Login</a>
+		  		</c:if>
+		  		<c:if test="${user ne null}">	  							
+		  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/mypage">${user.id}님 환영합니다!</a>
+	  			</c:if>
+		  		<c:if test="${user ne null}">	  							
+		  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signout">Logout</a>
+	  			</c:if>
+		  	</div>
 		</div> 
 	</nav>
 	<div class="logo">
@@ -157,7 +164,18 @@
 				<a class="cl cl_board" href="#">Board</a>
 			</div>
 			<div class="content_link">
-				<a class="cl cl_mypage" href="#">My Page</a>
+				<c:if test="${user eq null}">
+					<a class="cl cl_board" href="<%=request.getContextPath()%>/member/register">Register</a>
+				</c:if>	
+			</div>				
+		</div>
+		<div class="menu_content mypage_content">
+			
+			<div class="mypage content_link">
+				<a class="cl" href="#">MY PAGE</a>
+				<a class="cl lighter" href="#">Find ID/PW</a>
+				<a class="cl lighter" href="#">Modify</a>
+				<a class="cl lighter" href="#">Delete</a>
 			</div>
 		</div>
 	</div>
