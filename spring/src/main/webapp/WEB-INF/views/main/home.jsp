@@ -91,6 +91,7 @@
 <div class="clearfix">
 	<div class="mainbg">
 		<h1 class="main_txt">토트넘 홈페이지에 오신것을 환영합니다!</h1>
+		
 		<div class="mainbg_container">				
 			<div class="main_background">
 				<img src="<%=request.getContextPath()%>/resources/img/main_bg.jpg">			

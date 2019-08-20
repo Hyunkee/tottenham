@@ -20,7 +20,7 @@
 	</style>
 </head>
 <div class="container register">
-	<div class="offset-4 col-5 border border-dark mt-5">
+	<div class="col-5 border border-dark mt-5" style="margin:0 auto;">
 		<div class="logo_img">
 			<img src="<%=request.getContextPath()%>/resources/img/tottenham_logo_c.png">
 		</div>

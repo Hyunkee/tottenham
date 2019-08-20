@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.green.spring" />
+	<context:component-scan base-package="kr.green.tottenham" />
 	
 	<!-- tiles 경로 등록 -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -36,7 +36,25 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
-
+	
+	<!-- interceptor 등록 -->
+	<beans:bean id="loginInterceptor" 
+		class="kr.green.tottenham.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" 
+		class="kr.green.tottenham.interceptor.AuthInterceptor"></beans:bean>
+			
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/member/signin"/>
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/board/register"/>
+	        <mapping path="/board/modify"/>
+	        <mapping path="/board/delete"/>
+	        <beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
 
 
 	

@@ -1,4 +1,4 @@
-package kr.green.spring.vo;
+package kr.green.tottenham.vo;
 
 public class MemberVO {
 	private String id;

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
@@ -110,9 +111,18 @@
 </head>
 <div class="navbar_logo">
 	<nav class="navbar navbar-expand-md navbar-bgcolor navbar-dark">	
-		<div class="container flex-row-reverse">							
-		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signin">Login</a>
-		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>		  		  	
+		<div class="container flex-row-reverse">
+			<c:if test="${user eq null}">						
+		  		<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signin">Login</a>
+	  		</c:if>
+	  		<c:if test="${user ne null}">	  							
+	  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/mypage">${user.id}님 환영합니다!</a>
+  			</c:if>
+	  		<c:if test="${user ne null}">	  							
+	  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signout">Logout</a>
+  			</c:if>	  		
+		  	<a class="navbar-brand" href="<%=request.getContextPath()%>/">Home</a>	
+		  	  		  	
 		</div> 
 	</nav>
 	<div class="logo">

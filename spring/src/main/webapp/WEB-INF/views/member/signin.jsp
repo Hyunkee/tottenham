@@ -57,8 +57,7 @@
 		</div>		
 	</div>
 </div>
-<div style="height: 350px">
-	<c:if test="${user eq null}">
+<div style="height: 350px">	
 	<div class="login-box">
 		<form method="post" action="<%=request.getContextPath()%>/member/signin">
 			<div class="form-group">		  
@@ -74,8 +73,6 @@
 				<div class="pf_line"></div>
 				<a href="<%=request.getContextPath()%>/password/find">비밀번호 찾기</a>
 			</div>			
-		</form>
-		
-	</div>
-	</c:if>
+		</form>		
+	</div>	
 </div>
