@@ -34,12 +34,12 @@ public class HomeController {
 	    return mv;
 	}
 	@RequestMapping(value="/member/signin", method=RequestMethod.GET)
-	public ModelAndView signinGet(ModelAndView mv) throws Exception{		
+	public ModelAndView memberSigninGet(ModelAndView mv) throws Exception{		
 	    mv.setViewName("/member/signin");	    
 	    return mv;
 	}
 	@RequestMapping(value="/member/signin", method=RequestMethod.POST)
-	public String signinPost(MemberVO mVo, Model model){
+	public String memberSigninPost(MemberVO mVo, Model model){
 		logger.info("로그인 진행중");
 		System.out.println(mVo);
 		MemberVO user = memberService.signin(mVo);
@@ -50,20 +50,17 @@ public class HomeController {
 		return "redirect:/member/signin";	    
 	}
 	@RequestMapping(value="/member/signout", method=RequestMethod.GET)
-	public String signoutGet(HttpServletRequest r) throws Exception{
+	public String memberSignoutGet(HttpServletRequest r) throws Exception{
 		r.getSession().removeAttribute("user");
 	    return "redirect:/";
 	}
 	@RequestMapping(value="/member/register", method=RequestMethod.GET)
-	public ModelAndView registerGet(ModelAndView mv) throws Exception{
-		logger.info("회원가입 진행중");
+	public ModelAndView memberRegisterGet(ModelAndView mv) throws Exception{
 	    mv.setViewName("/member/register");	    
 	    return mv;
 	}
 	@RequestMapping(value="/member/register", method=RequestMethod.POST)
-	public String registerPost(MemberVO mVo){
-		logger.info("회원가입 완료");
-		System.out.println(mVo);
+	public String memberRegisterPost(MemberVO mVo){
 		if(memberService.register(mVo))
 			return "redirect:/";
 		else {
@@ -73,12 +70,24 @@ public class HomeController {
 	@RequestMapping(value ="/member/dup")
 	@ResponseBody
 	public Map<Object, Object> idcheck(@RequestBody String id){
-
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    // 변수 id에 저장된 아이디가 회원 아이디인지 아닌지 확인하여 isMember변수에 담아 보낸다.
 	    boolean isMember = memberService.isMember(id);
-	    map.put("isMember",isMember);	    
-	    
+	    map.put("isMember",isMember);
 	    return map;
+	}
+	@RequestMapping(value="/member/modify", method=RequestMethod.GET)
+	public ModelAndView memberModifyGet(ModelAndView mv) throws Exception{
+	    mv.setViewName("/member/modify");	    
+	    return mv;
+	}
+	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
+	public String memberModifyPost(MemberVO mVo, String oldPw) {
+		System.out.println(mVo);
+		System.out.println(oldPw);
+		if(memberService.modify(mVo,oldPw))
+			return "redirect:/";
+		else {
+			return "redirect:/member/modify";
+		}
 	}
 }

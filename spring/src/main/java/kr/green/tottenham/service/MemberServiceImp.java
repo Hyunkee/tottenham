@@ -50,4 +50,18 @@ public class MemberServiceImp implements MemberService{
 		return true;
 	}
 
+	@Override
+	public boolean modify(MemberVO mVo, String oldPw) {
+		if(mVo == null)
+			return false;
+		MemberVO oVo = memberDao.getMember(mVo.getId()); 
+		if(passwordEncoder.matches(oldPw, oVo.getPw())) {
+			mVo.setPw(passwordEncoder.encode(mVo.getPw()));
+			memberDao.modify(mVo);
+			return true;
+		}
+		return false;
+		
+	}
+
 }

@@ -8,6 +8,8 @@ public interface MemberService {
 
 	public MemberVO signin(MemberVO mVo);
 
-	public boolean isMember(String id);	
+	public boolean isMember(String id);
+
+	public boolean modify(MemberVO mVo, String oldPw);	
 
 }

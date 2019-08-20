@@ -10,4 +10,9 @@
 		insert into user(id,pw,name,gender,email)
 		values(#{id},#{pw},#{name},#{gender},#{email})
 	</insert>
+	<update id="modify">
+		update user
+	    	set pw = #{pw},name = #{name}, gender = #{gender}, email = #{email}
+	    	where id = #{id};
+	</update>
 </mapper>

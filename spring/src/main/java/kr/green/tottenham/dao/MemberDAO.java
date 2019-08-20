@@ -8,4 +8,6 @@ public interface MemberDAO {
 
 	void register(MemberVO mVo);
 
+	void modify(MemberVO mVo);
+
 }

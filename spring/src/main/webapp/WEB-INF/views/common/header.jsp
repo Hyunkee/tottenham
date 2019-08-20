@@ -170,13 +170,14 @@
 			</div>				
 		</div>
 		<div class="menu_content mypage_content">
-			
-			<div class="mypage content_link">
-				<a class="cl" href="#">MY PAGE</a>
-				<a class="cl lighter" href="#">Find ID/PW</a>
-				<a class="cl lighter" href="#">Modify</a>
-				<a class="cl lighter" href="#">Delete</a>
-			</div>
+			<c:if test="${user ne null}">
+				<div class="mypage content_link">
+					<a class="cl" href="#">MY PAGE</a>
+					<a class="cl lighter" href="#">Find ID/PW</a>
+					<a class="cl lighter" href="<%=request.getContextPath()%>/member/modify">Modify</a>
+					<a class="cl lighter" href="#">Delete</a>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </div>
