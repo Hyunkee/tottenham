@@ -15,3 +15,7 @@
 <!-- 썸머노트 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+
+<!-- validate -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.js"></script>

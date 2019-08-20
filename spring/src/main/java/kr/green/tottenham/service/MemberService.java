@@ -6,6 +6,8 @@ public interface MemberService {
 
 	public boolean register(MemberVO mVo);
 
-	public MemberVO signin(MemberVO mVo);	
+	public MemberVO signin(MemberVO mVo);
+
+	public boolean isMember(String id);	
 
 }
