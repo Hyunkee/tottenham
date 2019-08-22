@@ -43,7 +43,8 @@
 			return false;
 		}
 		var overLap = 0;				
-		$(document).ready(function(){
+		$(document).ready(function(){		
+			$('input[name=id]').focus();
 			$('#register').submit(function(){
 				if(!checkLength('#register input[name=id]',8,13)){
 					alert('아이디는 8~13자리 입니다.');

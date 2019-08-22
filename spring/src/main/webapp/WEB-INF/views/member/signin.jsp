@@ -48,6 +48,11 @@
 			margin:0 5px 0 5px;
 		}
 	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('input[name=id]').focus();
+		});
+	</script>
 </head>
 <div class="signin_bg">
 	<h1 class="sb_txt">로그인</h1>
@@ -69,9 +74,9 @@
 			<button type="submit" class="btn btn-outline-secondary col-12">로그인</button>
 			<a href="<%=request.getContextPath()%>/member/register"><button type="button" class="btn btn-outline-secondary col-12 register">회원가입</button></a>
 			<div class="offset-5 col-8 clearfix p-0 passwordfind">
-				<a href="<%=request.getContextPath()%>/password/find">아이디 찾기</a>
+				<a href="<%=request.getContextPath()%>/member/find">아이디 찾기</a>
 				<div class="pf_line"></div>
-				<a href="<%=request.getContextPath()%>/password/find">비밀번호 찾기</a>
+				<a href="<%=request.getContextPath()%>/member/find">비밀번호 찾기</a>
 			</div>			
 		</form>		
 	</div>	

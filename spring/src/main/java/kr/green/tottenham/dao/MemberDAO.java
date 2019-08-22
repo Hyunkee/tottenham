@@ -10,4 +10,6 @@ public interface MemberDAO {
 
 	void modify(MemberVO mVo);
 
+	MemberVO getEmail(String email);
+
 }

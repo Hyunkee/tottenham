@@ -111,6 +111,10 @@
 		}
 		.menu_content>.content_link>.cl.cl_find{
 			display:inline-block;
+		}
+		.cl_find_contents{
+			display:inline-block;
+			margin-left:40px;
 		}		
 		.display-block{
 			display:block;
@@ -171,7 +175,7 @@
 				<a class="cl cl_board" href="#">Board</a>
 			</div>
 			<div class="content_link">
-				<p class="cl cl_find">Find</p><a class="cl lighter cl_find" href="#">ID</a><a class="cl lighter cl_find" href="<%=request.getContextPath()%>/member/password">PW</a>
+				<p class="cl cl_find">Find</p><a class="cl lighter cl_find_contents" href="<%=request.getContextPath()%>/member/find">ID/PW</a>
 			</div>
 			<div class="content_link">
 				<c:if test="${user eq null}">

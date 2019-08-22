@@ -1,5 +1,8 @@
 package kr.green.tottenham.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,15 @@ public class MemberServiceImp implements MemberService{
 		}
 		return false;
 	}
+	
+	@Override
+	public MemberVO checkId(String name, String email) {
+		MemberVO user = memberDao.getEmail(email);		
+		if(user != null && user.getName().equals(name)) {			
+			return user;
+		}
+		return null;
+	}
 
 	@Override
 	public String createPw() {
@@ -128,5 +140,4 @@ public class MemberServiceImp implements MemberService{
 	    }
 		
 	}
-
 }

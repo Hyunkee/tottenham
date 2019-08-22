@@ -20,6 +20,8 @@ public interface MemberService {
 
 	public void modify(String id, String email, String newPw);
 
-	public void sendMail(String email, String title, String contents);	
+	public void sendMail(String email, String title, String contents);
+
+	public MemberVO checkId(String name, String email);	
 
 }

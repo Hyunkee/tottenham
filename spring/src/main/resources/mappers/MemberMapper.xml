@@ -6,6 +6,9 @@
 	<select id="getMember" resultType="kr.green.tottenham.vo.MemberVO">
 		select * from user where id = #{id}
 	</select>
+	<select id="getEmail" resultType="kr.green.tottenham.vo.MemberVO">
+		select * from user where email = #{email}
+	</select>
 	<insert id="register">
 		insert into user(id,pw,name,gender,email)
 		values(#{id},#{pw},#{name},#{gender},#{email})

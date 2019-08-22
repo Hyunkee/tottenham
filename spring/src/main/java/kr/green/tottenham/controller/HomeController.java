@@ -90,19 +90,43 @@ public class HomeController {
 			return "redirect:/member/modify";
 		}
 	}
-	@RequestMapping(value="/member/password", method=RequestMethod.GET)
+	@RequestMapping(value="/member/find", method=RequestMethod.GET)
 	public ModelAndView memberPasswordGet(ModelAndView mv) throws Exception{
-	    mv.setViewName("/member/password");	    
+	    mv.setViewName("/member/find");	    
 	    return mv;
 	}
-	// 아이디와 이메일체크 
-	@RequestMapping(value ="/checkemail")
+	@RequestMapping(value ="/checkid")
 	@ResponseBody
-	public Map<Object, Object> emailcheck(@RequestBody String str){
+	public Map<Object, Object> idfind(@RequestBody String str){		
+	    Map<Object, Object> map = new HashMap<Object, Object>();	    
+	    String [] arr = str.split("&");
+	    String name = arr[0];
+	    String email = "";	    
+	    try {
+			email = URLDecoder.decode(arr[1], "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}	    	    
+	    name = memberService.getVal(name);
+	    email = memberService.getVal(email);	  
+	    System.out.println(name);
+	    System.out.println(email);
+	    MemberVO isOk = memberService.checkId(name,email);	    
+	    map.put("isOk", isOk.getId());	    
+	    return map;
+	}
+	@RequestMapping(value = "/id/send")
+	public String idSend() {
+		return "redirect:/member/signin";
+	}  
+	// 아이디와 이메일체크 
+	@RequestMapping(value ="/checkpw")
+	@ResponseBody
+	public Map<Object, Object> pwfind(@RequestBody String str){
 
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    // 변수 id에 저장된 아이디가 회원 아이디인지 아닌지 확인하여 isMember변수에 담아 보낸다.
-	    
+	    System.out.println(str);
 	    String [] arr = str.split("&");
 	    String id = arr[0];
 	    String email = "";	    
@@ -111,11 +135,13 @@ public class HomeController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}	    	    
+	    System.out.println(id);
+	    System.out.println(email);
 	    id = memberService.getVal(id);
-	    email = memberService.getVal(email);
-	    
+	    email = memberService.getVal(email);	   
 	    boolean isOk = memberService.checkMember(id,email);
 	    map.put("isOk", isOk);
+	    System.out.println(str);
 	    return map;
 	}
 	// 임시 비밀번호 메일로 발송
