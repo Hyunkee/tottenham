@@ -171,7 +171,7 @@
 				<a class="cl cl_board" href="#">Board</a>
 			</div>
 			<div class="content_link">
-				<p class="cl cl_find">Find</p><a class="cl lighter cl_find" href="#">ID</a><a class="cl lighter cl_find" href="#">PW</a>
+				<p class="cl cl_find">Find</p><a class="cl lighter cl_find" href="#">ID</a><a class="cl lighter cl_find" href="<%=request.getContextPath()%>/member/password">PW</a>
 			</div>
 			<div class="content_link">
 				<c:if test="${user eq null}">
