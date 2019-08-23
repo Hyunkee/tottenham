@@ -24,4 +24,22 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectCountBoardList(cri, valid);
 	}
 
+	@Override
+	public void registerBoard(BoardVO bVo) {
+		boardDao.insertBoard(bVo);		
+	}
+
+	@Override
+	public BoardVO getBoard(Integer num) {
+		return boardDao.selectBoard(num);
+	}
+
+	@Override
+	public BoardVO increaseViews(BoardVO board) {
+		int views = board.getViews();
+		board.setViews(views+1);
+		boardDao.updateBoard(board);
+		return board;
+	}
+
 }

@@ -1,5 +1,6 @@
 package kr.green.tottenham.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BoardVO {
@@ -46,11 +47,24 @@ public class BoardVO {
 	public String getFile() {
 		return file;
 	}
+	public String getFileName() {
+		if(file == null)
+			return "";
+		int index = file.indexOf("_");
+		if(index == -1)
+			return "";
+		return file.substring(index+1); // 사용자가 첨부파일명을 봤을 때 uuid 와 같은 복잡한 문자열을 제외시키고 파일명과확장자명 만 추출해서 보여주기 위한 리턴값
+	}
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public Date getRegistered() {
-		return registered;
+	public String getRegistered() {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return f.format(registered);
+	}
+	public String getRegisteredUntilDay() {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		return f.format(registered);
 	}
 	public void setRegistered(Date registered) {
 		this.registered = registered;

@@ -6,7 +6,7 @@
 		.board_list_bg{
 			position:relative;
 			overflow:hidden;
-			height:400px;			
+			height:500px;			
 			z-index:1;						
 		}
 		.blb_txt{
@@ -21,21 +21,25 @@
 			background-color:#0b0e1e;			
 		}		
 		.blb_background>img{
-			width:100%;			
-			opacity:0.5;
+			width:100%;
+			height:150%;
+		}
+		td>a{
+			color:gray;
 		}		
+		td>a:hover{
+			color:gray;
+		}
 	</style>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$('input[name=id]').focus();
-		});
+	
 	</script>
 </head>
 <div class="board_list_bg">
 	<h1 class="blb_txt">게시판</h1>
 	<div class="blb_container">				
 		<div class="blb_background">
-			<img src="<%=request.getContextPath()%>/resources/img/board_list_bg.jpg">			
+			<img src="<%=request.getContextPath()%>/resources/img/board_list_bg2.jpg">			
 		</div>		
 	</div>
 </div>
@@ -53,7 +57,7 @@
 			<div class="form-group col-4 mb-0">	  
 				 <input type="text" class="form-control" name="search" value="${pageMaker.criteria.search}">	  
 			</div>
-			<button type="submit" class="btn btn-outline-info">검색</button>
+			<button type="submit" class="btn btn-outline-secondary">검색</button>
 		</form>
  	</div>
  	<table class="table table-hover">
@@ -113,7 +117,7 @@
   </ul>
   <c:if test="${user ne null }">
 	  <div>
-	  	<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-info">등록</button></a>
+	  	<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-secondary">등록</button></a>
 	  </div>
   </c:if>
 </div>

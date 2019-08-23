@@ -9,8 +9,14 @@ import kr.green.tottenham.vo.BoardVO;
 
 public interface BoardDAO {
 
-	ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri,@Param("valid")String valid);
+	public ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri,@Param("valid")String valid);
 
-	int selectCountBoardList(@Param("cri")Criteria cri,@Param("valid")String valid);
+	public int selectCountBoardList(@Param("cri")Criteria cri,@Param("valid")String valid);
+
+	public void insertBoard(@Param("board")BoardVO bVo);
+
+	public BoardVO selectBoard(@Param("num")Integer num);
+
+	public void updateBoard(@Param("board")BoardVO board);
 
 }

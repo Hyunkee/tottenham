@@ -7,8 +7,14 @@ import kr.green.tottenham.vo.BoardVO;
 
 public interface BoardService {
 
-	ArrayList<BoardVO> getBoardList(Criteria cri, String valid);
+	public ArrayList<BoardVO> getBoardList(Criteria cri, String valid);
 
-	int getTotalCount(Criteria cri, String valid);
+	public int getTotalCount(Criteria cri, String valid);
+
+	public void registerBoard(BoardVO bVo);
+
+	public BoardVO getBoard(Integer num);
+
+	public BoardVO increaseViews(BoardVO board);
 
 }
