@@ -172,7 +172,7 @@
 				<a class="cl cl_team" href="#">Player</a>
 			</div>
 			<div class="content_link">
-				<a class="cl cl_board" href="#">Board</a>
+				<a class="cl cl_board" href="<%=request.getContextPath()%>/board/list">Board</a>
 			</div>
 			<div class="content_link">
 				<p class="cl cl_find">Find</p><a class="cl lighter cl_find_contents" href="<%=request.getContextPath()%>/member/find">ID/PW</a>
