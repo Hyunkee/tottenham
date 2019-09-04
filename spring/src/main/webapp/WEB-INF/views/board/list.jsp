@@ -24,6 +24,9 @@
 			width:100%;
 			height:150%;
 		}
+		.container.board-list{
+			margin-bottom:100px;
+		}
 		td>a{
 			color:gray;
 		}		
@@ -43,7 +46,7 @@
 		</div>		
 	</div>
 </div>
-<div class="container">
+<div class="container board-list">
 	<div>
 	  	<form action="<%=request.getContextPath()%>/board/list" method="get" class="row mb-3 mt-3">
 		  	<div class="form-group col-2 mb-0">	  
@@ -117,7 +120,7 @@
   </ul>
   <c:if test="${user ne null }">
 	  <div>
-	  	<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-secondary">등록</button></a>
+	  	<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-secondary float-right">등록하기</button></a>
 	  </div>
   </c:if>
 </div>

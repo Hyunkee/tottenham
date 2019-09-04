@@ -2,12 +2,16 @@ package kr.green.tottenham.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.tottenham.dao.BoardDAO;
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.FileVO;
+import kr.green.tottenham.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -25,8 +29,9 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void registerBoard(BoardVO bVo) {
-		boardDao.insertBoard(bVo);		
+	public int registerBoard(BoardVO bVo) {
+		boardDao.registerBoard(bVo);
+		return boardDao.getMaxBoardNum();
 	}
 
 	@Override
@@ -42,4 +47,31 @@ public class BoardServiceImp implements BoardService {
 		return board;
 	}
 
+	@Override
+	public boolean isWriter(Integer num, HttpServletRequest r) {
+		BoardVO board = boardDao.selectBoard(num);
+		MemberVO user = (MemberVO)(r.getSession().getAttribute("user"));
+		if(board != null && board.getWriter().equals(user.getId())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void modifyBoard(BoardVO board) {
+		BoardVO tmp = boardDao.selectBoard(board.getNum());
+		board.setValid(tmp.getValid());
+		board.setViews(tmp.getViews());
+		boardDao.updateBoard(board);		
+	}
+
+	@Override
+	public void addFile(String file, int num) {
+		boardDao.insertFile(file,num);		
+	}
+
+	@Override
+	public ArrayList<FileVO> getFiles(Integer num) {
+		return boardDao.selectFileList(num);
+	}
 }

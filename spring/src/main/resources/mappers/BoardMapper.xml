@@ -55,10 +55,19 @@
     	</otherwise>
     </choose>
   </select>
-  <insert id="insertBoard">
+  <insert id="registerBoard">
   	insert into board(writer,title,contents,file) 
   		values(#{board.writer},#{board.title},#{board.contents},#{board.file}) 
-  </insert> 
+  </insert>
+  <insert id="insertFile">
+	insert into file(board_num,name) values(#{num},#{file})
+  </insert>
+  <select id="selectFileList" resultType="kr.green.tottenham.vo.FileVO">
+	select * from file where board_num = #{num}
+  </select>
+  <select id="getMaxBoardNum" resultType="int">
+  		select max(num) from board;
+  </select> 
   <select id="selectBoard" resultType="kr.green.tottenham.vo.BoardVO">
   	select * from board where num = #{num}
   </select>

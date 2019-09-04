@@ -1,23 +1,34 @@
 package kr.green.tottenham.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.tottenham.utils.UploadFileUtils;
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.pagination.PageMaker;
 import kr.green.tottenham.service.BoardService;
 import kr.green.tottenham.service.PageMakerService;
+import kr.green.tottenham.utils.UploadFileUtils;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.FileVO;
 
 
 @Controller
@@ -49,21 +60,74 @@ public class BoardController {
 	    return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String boardRegisterPost(BoardVO bVo, MultipartFile file2) throws IOException, Exception{
-		if(file2.getOriginalFilename().length() != 0) {
-			String file = UploadFileUtils.uploadFile(uploadPath, file2.getOriginalFilename(),file2.getBytes());
-			bVo.setFile(file);
-		}		
-		boardService.registerBoard(bVo);
+	public String boardRegisterPost(BoardVO bVo, MultipartFile[] file2) throws IOException, Exception{
+		int num = boardService.registerBoard(bVo);
+		for(MultipartFile tmp : file2)
+			if(tmp.getOriginalFilename().length() != 0) {
+				String file = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
+				boardService.addFile(file,num);				
+			}
 	    return "redirect:/board/list";
 	}
 	@RequestMapping(value="/display", method=RequestMethod.GET)
-	public ModelAndView boardDisplayGet(ModelAndView mv,Integer num,Criteria cri){
+	public ModelAndView boardDisplayGet(ModelAndView mv,Integer num,Criteria cri,Model model){
 		BoardVO board = boardService.getBoard(num);		
 		board = boardService.increaseViews(board);
+		ArrayList<FileVO> files = boardService.getFiles(num);
 		mv.setViewName("/board/display");
+		mv.addObject("board", board);
+		mv.addObject("cri", cri);		
+		model.addAttribute("files", files);
+	    return mv;
+	}
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public ModelAndView boardModifyGet(ModelAndView mv,Integer num,Criteria cri,HttpServletRequest r){
+		boolean isWriter = boardService.isWriter(num, r);
+		BoardVO board;
+		if(isWriter) {
+			board = boardService.getBoard(num);
+			mv.setViewName("/board/modify");
+		}else {
+			board = null;
+			mv.setViewName("redirect:/board/list");
+		}		
 		mv.addObject("board", board);
 		mv.addObject("cri", cri);
 	    return mv;
 	}
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String boardModifyPost(BoardVO bVo,HttpServletRequest r,MultipartFile file2) throws IOException, Exception{
+		if(file2.getOriginalFilename().length() !=0) {
+			String file = UploadFileUtils.uploadFile(uploadPath, file2.getOriginalFilename(),file2.getBytes());
+			bVo.setFile(file);
+		}
+		if(boardService.isWriter(bVo.getNum(), r))
+			boardService.modifyBoard(bVo);
+		System.out.println(bVo);
+		
+	    return "redirect:/board/list";
+	}
+	@ResponseBody
+	@RequestMapping("/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    try{
+	        String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	        HttpHeaders headers = new HttpHeaders();
+	        in = new FileInputStream(uploadPath+fileName);
+
+	        fileName = fileName.substring(fileName.indexOf("_")+1);
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	        headers.add("Content-Disposition",  "attachment; filename=\"" 
+				+ new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+	        entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+	    }finally {
+	        in.close();
+	    }
+	    return entity;
+	}	
 }
