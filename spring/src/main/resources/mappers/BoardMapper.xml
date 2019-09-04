@@ -63,7 +63,7 @@
 	insert into file(board_num,name) values(#{num},#{file})
   </insert>
   <select id="selectFileList" resultType="kr.green.tottenham.vo.FileVO">
-	select * from file where board_num = #{num}
+	select * from file where board_num = #{num} and state = 'I'
   </select>
   <select id="getMaxBoardNum" resultType="int">
   		select max(num) from board;
@@ -76,4 +76,9 @@
   		set title=#{board.title}, contents=#{board.contents}, file=#{board.file}, views=#{board.views}, valid=#{board.valid}, registered=now()
  		where num=#{board.num}  
   </update> 
+  <update id="updateFile">
+  	update `file`
+  		set state = 'D'
+  		where board_num = #{board_num}
+  </update>
  </mapper>

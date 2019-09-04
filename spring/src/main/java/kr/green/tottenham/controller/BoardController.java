@@ -107,8 +107,7 @@ public class BoardController {
 					String file = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
 					System.out.println("boardModifyPost file : " + file);
 					boardService.addFile(file,bVo.getNum());				
-				}	
-		System.out.println(bVo);		
+				}
 	    return "redirect:/board/list";
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.GET)

@@ -73,7 +73,7 @@ public class BoardServiceImp implements BoardService {
 			return;
 		board.setValid("D");
 		boardDao.updateBoard(board);
-		
+		boardDao.updateFile(num);
 	}	
 
 	@Override

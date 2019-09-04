@@ -26,5 +26,7 @@ public interface BoardDAO {
 	public void insertFile(@Param("file")String file, @Param("num")int num);
 
 	public ArrayList<FileVO> selectFileList(Integer num);
+
+	public void updateFile(@Param("board_num")Integer num);
 	
 }
