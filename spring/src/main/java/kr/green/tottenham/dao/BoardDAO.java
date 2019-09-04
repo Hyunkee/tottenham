@@ -3,6 +3,7 @@ package kr.green.tottenham.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
@@ -25,5 +26,5 @@ public interface BoardDAO {
 	public void insertFile(@Param("file")String file, @Param("num")int num);
 
 	public ArrayList<FileVO> selectFileList(Integer num);
-
+	
 }

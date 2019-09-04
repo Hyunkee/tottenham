@@ -24,9 +24,16 @@
 			width:100%;
 			height:150%;
 		}
+		.note-editor{
+			z-index:10;
+		}	
+		.filename{
+			color:black;
+		}
 	</style>
 	<script>
-		$(document).ready(function(){	
+		$(document).ready(function(){
+			addInputEvent();
 			$('#summernote').summernote({
 			  placeholder: 'Hello bootstrap 4',
 			  tabsize: 2,
@@ -35,9 +42,16 @@
 			});
 			$('.close').click(function(){
 				$('#fileLink').remove();
-				$('input[name=file]').val('');
+				$('input[name=fileOri]').val('');
 				$(this).css('display','none');
 			});
+			function addInputEvent(){
+				$('input[name=file2]').change(function(){
+					var str = '<input type="file" class="form-control" name="file2" value="">'
+					$(this).after(str);
+					addInputEvent();
+				})
+			}
 		});
 	</script>
 </head>
@@ -62,12 +76,16 @@
 			<textarea id="summernote" name="contents">${board.contents}</textarea>
 			<div class="form-group">
 				<label>첨부파일</label>
-				<c:if test="${board.fileName ne ''}">
-					<a href="<%=request.getContextPath()%>/board/download?fileName=${board.file}" id="fileLink">${board.fileName}</a>
-					<input type="hidden" name="file" value="${board.file}">
-					<i class="fas fa-times close"></i>				
-				</c:if>
-				<c:if test="${board.fileName eq ''}">
+				<c:forEach items="${files}" var="file">
+					<div>
+						<c:if test="${file.name ne ''}">
+							<a class="filename" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" id="fileLink">${file.fileName}</a>
+							<i class="fas fa-times close"></i>
+							<input type="hidden" name="fileOri" value="${file.fileName}">
+						</c:if>
+					</div>
+				</c:forEach>
+				<c:if test="${file.name eq ''}">
 					없음
 				</c:if>
 			</div>

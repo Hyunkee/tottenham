@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
 import kr.green.tottenham.vo.FileVO;
@@ -28,4 +30,5 @@ public interface BoardService {
 
 	public ArrayList<FileVO> getFiles(Integer num);
 
+	public void deleteBoard(Integer num);
 }

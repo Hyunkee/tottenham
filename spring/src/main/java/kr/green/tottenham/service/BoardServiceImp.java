@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.tottenham.dao.BoardDAO;
 import kr.green.tottenham.pagination.Criteria;
@@ -58,12 +59,22 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void modifyBoard(BoardVO board) {
-		BoardVO tmp = boardDao.selectBoard(board.getNum());
-		board.setValid(tmp.getValid());
-		board.setViews(tmp.getViews());
-		boardDao.updateBoard(board);		
+	public void modifyBoard(BoardVO bVo) {
+		BoardVO tmp = boardDao.selectBoard(bVo.getNum());
+		bVo.setValid(tmp.getValid());
+		bVo.setViews(tmp.getViews());
+		boardDao.updateBoard(bVo);		
 	}
+	
+	@Override
+	public void deleteBoard(Integer num) {
+		BoardVO board = boardDao.selectBoard(num);
+		if(board == null)
+			return;
+		board.setValid("D");
+		boardDao.updateBoard(board);
+		
+	}	
 
 	@Override
 	public void addFile(String file, int num) {
@@ -74,4 +85,6 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<FileVO> getFiles(Integer num) {
 		return boardDao.selectFileList(num);
 	}
+
+	
 }

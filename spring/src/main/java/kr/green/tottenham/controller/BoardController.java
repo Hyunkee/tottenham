@@ -81,8 +81,9 @@ public class BoardController {
 	    return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public ModelAndView boardModifyGet(ModelAndView mv,Integer num,Criteria cri,HttpServletRequest r){
+	public ModelAndView boardModifyGet(ModelAndView mv,Integer num,Criteria cri,HttpServletRequest r,Model model){
 		boolean isWriter = boardService.isWriter(num, r);
+		ArrayList<FileVO> files = boardService.getFiles(num);
 		BoardVO board;
 		if(isWriter) {
 			board = boardService.getBoard(num);
@@ -93,19 +94,29 @@ public class BoardController {
 		}		
 		mv.addObject("board", board);
 		mv.addObject("cri", cri);
+		model.addAttribute("files", files);
 	    return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String boardModifyPost(BoardVO bVo,HttpServletRequest r,MultipartFile file2) throws IOException, Exception{
-		if(file2.getOriginalFilename().length() !=0) {
-			String file = UploadFileUtils.uploadFile(uploadPath, file2.getOriginalFilename(),file2.getBytes());
-			bVo.setFile(file);
-		}
-		if(boardService.isWriter(bVo.getNum(), r))
-			boardService.modifyBoard(bVo);
-		System.out.println(bVo);
-		
+	public String boardModifyPost(BoardVO bVo,HttpServletRequest r,MultipartFile[] file2,MultipartFile[] fileOri) throws IOException, Exception{		
+		boardService.modifyBoard(bVo);
+		if(boardService.isWriter(bVo.getNum(), r))			
+			for(MultipartFile tmp : file2)
+				if(tmp.getOriginalFilename().length() != 0) {
+					System.out.println("boardModifyPost tmp : " + tmp);
+					String file = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
+					System.out.println("boardModifyPost file : " + file);
+					boardService.addFile(file,bVo.getNum());				
+				}	
+		System.out.println(bVo);		
 	    return "redirect:/board/list";
+	}
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public ModelAndView boardDeleteGet(ModelAndView mv,Integer num,HttpServletRequest r){
+		if(boardService.isWriter(num, r))
+			boardService.deleteBoard(num);
+		mv.setViewName("redirect:/board/list");
+	    return mv;
 	}
 	@ResponseBody
 	@RequestMapping("/download")

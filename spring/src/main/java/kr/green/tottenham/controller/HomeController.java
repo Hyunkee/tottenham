@@ -41,9 +41,7 @@ public class HomeController {
 	    return mv;
 	}
 	@RequestMapping(value="/member/signin", method=RequestMethod.POST)
-	public String memberSigninPost(MemberVO mVo, Model model){
-		logger.info("로그인 진행중");
-		System.out.println(mVo);
+	public String memberSigninPost(MemberVO mVo, Model model){		
 		MemberVO user = memberService.signin(mVo);
 		if(user != null) {
 			model.addAttribute("user",user);
