@@ -38,6 +38,7 @@
 			width: 100%;
 		    background-color: gray;
 		    height: 1px;
+		    margin:15px 0 15px 0;
 		}
 		.filename{
 			color:black;
@@ -95,6 +96,48 @@
 				<c:if test="${file.name eq ''}">
 					없음
 				</c:if>
+			</div>
+		</div>
+		<div class="contents-bottom-line"></div>		
+		<div class="comment" id="comment">
+			<div class="comment-contents">
+				<!-- 댓글 등록창 -->
+				<div class="comment-regiser-box">
+					<input type="hidden" name="category" value="댓글">
+					<input type="hidden" name="board_no" value="">
+					<div class="text-box clearfix">
+						<h5 style="float: left;">댓글</h5>							
+					</div>
+					<div class="contents-box">
+						<input name="contents" style="width:50%; height:100px;">
+					</div>
+					<div class="button-box clearfix">
+						<button type="button" id="comment-add" class="btn btn-outline-secondary" style="margin:15px 0 15px 0">
+							<p>등록하기</p>
+						</button>
+					</div>
+				</div>
+				<!-- 댓글 게시판 -->
+				<div class="comment-board">
+					<table class="table">
+						<tr class="table-title" id="comment-title">
+							<th width="15%">작성자</th>
+							<th width="40%">내용</th>
+							<th width="25%">등록일</th>
+							<th width="10%">답글</th>								
+						</tr>
+						<c:if test="${commentList ne null}">
+							<c:forEach items="${commentList}" var="comment">
+								<tr class="table-contents">
+									<th>${comment.writer}</th>
+									<th>${comment.contents}</th>
+									<th>${comment.time}</th>
+									<th>작성하기</th>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</table>
+				</div>				
 			</div>
 		</div>
 		<div class="contents-bottom-line"></div>
