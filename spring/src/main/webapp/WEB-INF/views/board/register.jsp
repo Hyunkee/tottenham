@@ -33,6 +33,7 @@
 		.board_register .btn-list{
 			margin-top:15px;
 		}
+		
 		.note-editor{
 			z-index:10;
 		}		
@@ -48,7 +49,7 @@
 			});			
 			function addInputEvent(){
 				$('input[name=file2]').change(function(){
-					var str = '<input type="file" class="form-control" name="file2" value="">'
+					var str = '<input type="file" class="form-control-file border" name="file2" style="margin-top:5px;" value="">'
 					$(this).after(str);
 					addInputEvent();
 				})
@@ -76,7 +77,7 @@
 				<input type="text" class="form-control" name="writer" value="${user.id}" readonly>	  
 			</div>
 			<textarea id="summernote" name="contents"></textarea>
-			<input type="file" class="form-control-file border" name="file2">
+			<input type="file" class="form-control-file border" name="file2" style="margin-top:15px;">
 			<button type="submit" class="btn btn-outline-secondary float-right btn-register">등록하기</button>
 			<a href="<%=request.getContextPath()%>/board/list"><button type="button" class="btn btn-outline-secondary btn-list">게시판 목록</button></a>				
 		</form>

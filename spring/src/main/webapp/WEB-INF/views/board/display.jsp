@@ -34,7 +34,11 @@
 		.board_display{
 			margin:50px 0 50px 0;
 		}
-		
+		.contents-bottom-line{
+			width: 100%;
+		    background-color: gray;
+		    height: 1px;
+		}
 		.filename{
 			color:black;
 		}
@@ -80,15 +84,20 @@
 		</div>
 		<div class="form-group">
 			<label>첨부파일</label>
-			<c:forEach items="${files}" var="file">
-				<c:if test="${file.name ne ''}">
-					<a class="filename" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.fileName}</a>
+			<div class="file-contents">
+				<c:forEach items="${files}" var="file">
+					<c:if test="${file.name ne ''}">
+						<div class="form-control" style="margin-top:10px; background-color:#e9ecef;">
+							<a class="filename" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.fileName}</a>
+						</div>
+					</c:if>
+				</c:forEach>
+				<c:if test="${file.name eq ''}">
+					없음
 				</c:if>
-			</c:forEach>
-			<c:if test="${file.name eq ''}">
-				없음
-			</c:if>
+			</div>
 		</div>
+		<div class="contents-bottom-line"></div>
 		<div class="mt-3">
 	  		<a href="<%=request.getContextPath()%>/board/list?page=${cri.page}&type=${cri.type}&search=${cri.search}"><button class="btn btn-outline-secondary">게시판 목록</button></a>
 	  		<c:if test="${user.id eq board.writer}">
