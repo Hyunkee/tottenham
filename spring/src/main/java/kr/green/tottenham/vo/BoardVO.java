@@ -63,6 +63,8 @@ public class BoardVO {
 		return f.format(registered);
 	}
 	public String getRegisteredUntilDay() {
+		if(registered == null) // 예외처리
+			return "";
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 		return f.format(registered);
 	}

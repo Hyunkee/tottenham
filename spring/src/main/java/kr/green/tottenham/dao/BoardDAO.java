@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.CommentVO;
 import kr.green.tottenham.vo.FileVO;
 
 public interface BoardDAO {
@@ -28,5 +29,11 @@ public interface BoardDAO {
 	public ArrayList<FileVO> selectFileList(Integer num);
 
 	public void updateFile(@Param("board_num")Integer num);
+
+	public void insertComment(@Param("board_num")Integer board_num, @Param("writer")String writer, @Param("contents")String contents);
+
+	public int selectMaxComment();
+
+	public CommentVO selectComment(@Param("no")int no);
 	
 }

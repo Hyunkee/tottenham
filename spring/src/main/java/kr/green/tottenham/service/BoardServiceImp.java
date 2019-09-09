@@ -1,6 +1,7 @@
 package kr.green.tottenham.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.green.tottenham.dao.BoardDAO;
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.CommentVO;
 import kr.green.tottenham.vo.FileVO;
 import kr.green.tottenham.vo.MemberVO;
 
@@ -86,5 +88,14 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectFileList(num);
 	}
 
-	
+	@Override
+	public CommentVO registerComment(Integer board_num, String writer, String contents) {
+		if(board_num == null || writer == "" || contents == "") {
+			return null;
+		}
+		boardDao.insertComment(board_num, writer, contents);
+		int no = boardDao.selectMaxComment();
+		System.out.println("selectMaxComment no : " + no);
+		return boardDao.selectComment(no);
+	}	
 }

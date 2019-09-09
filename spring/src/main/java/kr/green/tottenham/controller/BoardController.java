@@ -3,7 +3,11 @@ package kr.green.tottenham.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,9 +30,11 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.pagination.PageMaker;
 import kr.green.tottenham.service.BoardService;
+import kr.green.tottenham.service.MemberService;
 import kr.green.tottenham.service.PageMakerService;
 import kr.green.tottenham.utils.UploadFileUtils;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.CommentVO;
 import kr.green.tottenham.vo.FileVO;
 
 
@@ -41,6 +48,8 @@ public class BoardController {
 	PageMakerService pageMakerService;
 	@Resource
 	private String uploadPath;
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView boardListGet(ModelAndView mv, Criteria cri) throws Exception{				
@@ -140,4 +149,12 @@ public class BoardController {
 	    }
 	    return entity;
 	}	
+	@RequestMapping(value="/addComment")	//댓글 등록
+    @ResponseBody
+    public Map<Object, Object> addComment(CommentVO cVo) {
+		System.out.println(cVo);
+    	Map<Object, Object> map = new HashMap<Object, Object>();    	
+    	return map;
+
+    }
 }

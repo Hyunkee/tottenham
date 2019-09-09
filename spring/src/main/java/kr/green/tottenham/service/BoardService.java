@@ -1,6 +1,7 @@
 package kr.green.tottenham.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.BoardVO;
+import kr.green.tottenham.vo.CommentVO;
 import kr.green.tottenham.vo.FileVO;
 
 public interface BoardService {
@@ -31,4 +33,6 @@ public interface BoardService {
 	public ArrayList<FileVO> getFiles(Integer num);
 
 	public void deleteBoard(Integer num);
+
+	public CommentVO registerComment(Integer board_num, String writer, String contents);	
 }

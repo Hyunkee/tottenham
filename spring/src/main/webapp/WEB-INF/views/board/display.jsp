@@ -46,10 +46,54 @@
 		.btn-modify{
 			margin-left:10px;
 		}
+		.comment .table td{
+			padding: 0;
+		}
 	</style>
 	<script>
 		$(document).ready(function(){	
-			
+			//댓글 등록 클릭 시
+			$('#comment-add').click(function(){
+				if($('input[name=id]').val() == ""){
+					location.href = '<%=request.getContextPath()%>/signin';
+				}				
+				var board_num = $('.comment-regiser-box input[name=board_num]').val();
+				var writer = $('input[name=id]').val();				
+				var contents = $('#contents').val();
+				$.ajax({ 
+			        async:true,	//async:true - 비동기화(동시 작업 처리)	async:false - 동기화(순차적 작업 처리) 
+			        type:'POST',	//POST방식으로 전송
+			        data:{"board_num": board_num, "writer": writer, "contents": contents},	//컨트롤러에게 넘겨주는 매개변수명 -> {'id':id} 형식과 같고 {}를 사용할 때는 변수를 여러 개 사용할 때
+			        url:"<%=request.getContextPath()%>/board/addComment",
+			        dataType:"json",
+			        //contentType:"application/json; charset=UTF-8",
+			        success : function(data){	//요청이 성공해서 보내준 값을 저장할 변수명
+			  			
+			        }
+				});
+			});			
+
+			//댓글 삭제 클릭 시
+			$('.comment-delete-button').click(function(){
+				$(this).parents('.table-contents').remove();
+				var writer = $('input[name=id]').val()
+				var num = $(this).siblings('input[name=comment_num]').val();
+				$.ajax({ 
+			        async:true,	//async:true - 비동기화(동시 작업 처리)	async:false - 동기화(순차적 작업 처리)
+			        type:'POST',	//POST방식으로 전송
+			        data: {"writer": writer, "num": num},
+			        url:"<%=request.getContextPath()%>/board/deleteComment",
+			        dataType:"json",
+			       	//contentType:"application/json; charset=UTF-8",
+			        success : function(data){	//요청이 성공해서 보내준 값을 저장할 변수명
+			        	if(data){
+			        		alert("댓글이 삭제 되었습니다.");
+			        	}else{
+			        		alert("요청이 실패했습니다.");
+			        	}
+			        }
+				});
+			});
 		});
 	</script>
 </head>
@@ -98,22 +142,20 @@
 				</c:if>
 			</div>
 		</div>
-		<div class="contents-bottom-line"></div>		
+		<div class="contents-bottom-line"></div>
+		<!-- 댓글 컨텐츠 시작  -->		
 		<div class="comment" id="comment">
 			<div class="comment-contents">
 				<!-- 댓글 등록창 -->
-				<div class="comment-regiser-box">
-					<input type="hidden" name="category" value="댓글">
-					<input type="hidden" name="board_no" value="">
-					<div class="text-box clearfix">
-						<h5 style="float: left;">댓글</h5>							
-					</div>
+				<div class="comment-regiser-box">					
+					<input type="hidden" name="board_num" value="${board.num}">
+					<input type="hidden" name="id" value="${user.id}">					
 					<div class="contents-box">
-						<input name="contents" style="width:50%; height:100px;">
+						<textarea style="width: 1024px" rows="3" cols="30" id="contents" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="button-box clearfix">
-						<button type="button" id="comment-add" class="btn btn-outline-secondary" style="margin:15px 0 15px 0">
-							<p>등록하기</p>
+						<button type="button" id="comment-add">
+							<h4>등록하기</h4>
 						</button>
 					</div>
 				</div>
@@ -123,23 +165,28 @@
 						<tr class="table-title" id="comment-title">
 							<th width="15%">작성자</th>
 							<th width="40%">내용</th>
-							<th width="25%">등록일</th>
-							<th width="10%">답글</th>								
+							<th width="25%">등록일</th>							
 						</tr>
 						<c:if test="${commentList ne null}">
 							<c:forEach items="${commentList}" var="comment">
 								<tr class="table-contents">
 									<th>${comment.writer}</th>
 									<th>${comment.contents}</th>
-									<th>${comment.time}</th>
-									<th>작성하기</th>
+									<th>${comment.registered}</th>
+									<th>
+										<input type="hidden" value="${comment.board_num}" name="board_num">
+										<c:if test="${user.id eq comment.writer}">
+											<button class="comment-delete-button">삭제</button>
+										</c:if>
+									</th>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
 				</div>				
 			</div>
-		</div>
+		</div>		
+		<!-- 댓글 컨텐츠 끝 -->		
 		<div class="contents-bottom-line"></div>
 		<div class="mt-3">
 	  		<a href="<%=request.getContextPath()%>/board/list?page=${cri.page}&type=${cri.type}&search=${cri.search}"><button class="btn btn-outline-secondary">게시판 목록</button></a>
