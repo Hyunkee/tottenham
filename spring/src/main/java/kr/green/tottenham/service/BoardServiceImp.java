@@ -89,13 +89,19 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public CommentVO registerComment(Integer board_num, String writer, String contents) {
-		if(board_num == null || writer == "" || contents == "") {
+	public CommentVO registerComment(CommentVO cVo) {
+		if(cVo.getBoard_num() == null || cVo.getWriter() == "" || cVo.getContents() == "") {
 			return null;
 		}
-		boardDao.insertComment(board_num, writer, contents);
+		boardDao.insertComment(cVo);
 		int no = boardDao.selectMaxComment();
 		System.out.println("selectMaxComment no : " + no);
 		return boardDao.selectComment(no);
-	}	
+	}
+
+	@Override
+	public ArrayList<CommentVO> getCommentList(Integer num) {
+		
+		return boardDao.selectCommentList(num);
+	}
 }

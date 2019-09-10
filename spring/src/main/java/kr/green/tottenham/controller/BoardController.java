@@ -83,6 +83,8 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);		
 		board = boardService.increaseViews(board);
 		ArrayList<FileVO> files = boardService.getFiles(num);
+		ArrayList <CommentVO> cVo1 = boardService.getCommentList(num);
+    	model.addAttribute("commentList", cVo1);
 		mv.setViewName("/board/display");
 		mv.addObject("board", board);
 		mv.addObject("cri", cri);		
@@ -152,9 +154,11 @@ public class BoardController {
 	@RequestMapping(value="/addComment")	//댓글 등록
     @ResponseBody
     public Map<Object, Object> addComment(CommentVO cVo) {
-		System.out.println(cVo);
+		System.out.println(cVo);		
     	Map<Object, Object> map = new HashMap<Object, Object>();    	
+    	CommentVO cVo1 = boardService.registerComment(cVo);
+    	map.put("cVo", cVo1);
+    	map.put("commentList", cVo1);
     	return map;
-
     }
 }

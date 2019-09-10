@@ -30,10 +30,14 @@ public interface BoardDAO {
 
 	public void updateFile(@Param("board_num")Integer num);
 
-	public void insertComment(@Param("board_num")Integer board_num, @Param("writer")String writer, @Param("contents")String contents);
+	public void insertComment(@Param("comment")CommentVO cVo);
 
 	public int selectMaxComment();
 
-	public CommentVO selectComment(@Param("no")int no);
+	public CommentVO selectComment(@Param("num")int no);
+
+	public ArrayList<CommentVO> selectCommentList(@Param("num")Integer num);
+	
+	
 	
 }

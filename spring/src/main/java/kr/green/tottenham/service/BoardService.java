@@ -34,5 +34,15 @@ public interface BoardService {
 
 	public void deleteBoard(Integer num);
 
-	public CommentVO registerComment(Integer board_num, String writer, String contents);	
+	public CommentVO registerComment(CommentVO cVo);
+
+	public ArrayList<CommentVO> getCommentList(Integer num);
+
+	
+
+	
+
+	
+
+		
 }

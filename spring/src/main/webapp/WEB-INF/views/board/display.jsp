@@ -27,17 +27,47 @@
 		.col-1, .col-2, .col-3, .col-4, .col-7{
 			padding:0;
 		}		
-		.contents{
-			border : 1px solid gray;
-			border-radius : 10px;
-		}
 		.board_display{
 			margin:50px 0 50px 0;
+		}
+		.board_display {
+			width:100%;
+			border-top:2px solid #252525;
+			border-bottom:1px solid #ccc
+		} 
+		.board_display tbody th {
+			text-align:left;
+			background:#f7f7f7;
+			color:#3b3a3a
+		} 
+		.board_display tbody th.list_tit {
+			font-size:13px;
+			color:#000;
+			letter-spacing:0.1px
+		} 
+		.board_display tbody .no_line_b th, .board_display tbody .no_line_b td {
+			border-bottom:none
+		} 
+		.board_display tbody th, .board_display tbody td {
+			padding:15px 0 16px 16px;
+			border-bottom:1px solid #ccc
+		} 
+		.board_display tbody td.view_text {
+			border-top:1px solid #ccc; 
+			border-bottom:1px solid #ccc;
+			padding:45px 18px 45px 18px
+		} 
+		.board_display tbody th.th_file {
+			padding:0 0 0 15px; 
+			vertical-align:middle
+		}
+		.board_display_comment{
+			margin-bottom:40px;
 		}
 		.contents-bottom-line{
 			width: 100%;
 		    background-color: gray;
-		    height: 1px;
+		    height: 1.5px;
 		    margin:15px 0 15px 0;
 		}
 		.filename{
@@ -48,6 +78,9 @@
 		}
 		.comment .table td{
 			padding: 0;
+		}
+		.comment-regiser-box .button-box{
+			margin:10px 0 20px 0;
 		}
 	</style>
 	<script>
@@ -68,7 +101,10 @@
 			        dataType:"json",
 			        //contentType:"application/json; charset=UTF-8",
 			        success : function(data){	//요청이 성공해서 보내준 값을 저장할 변수명
-			  			
+			  			alert("writer : " + data.cVo.writer + ", board_num : " + data.cVo.board_num + ", contents : " + data.cVo.contents);
+			  			var str = '<tr><th style="width:30%">'+data.cVo.writer+'</th><th style="width:50%">'+data.cVo.contents+'</th><th style="width:20%">'+data.cVo.registered+'</th></tr>';
+						$('#comment-title').after(str);
+						
 			        }
 				});
 			});			
@@ -106,43 +142,48 @@
 	</div>
 </div>
 <div class="container">
-	<div class="board_display">				
-		<div class="form-group col-4">
-			<h5>제목</h5>	  
-			<input type="text" class="form-control" name="title" value="${board.title}" readonly>	  
-		</div>
-		<div class="form-group col-4">
-			<h5>작성자</h5>	  
-			<input type="text" class="form-control" name="writer" value="${board.writer}" readonly>	  
-		</div>
-		<div class="form-group col-4">
-			<h5>작성일</h5>	  
-			<input type="text" class="form-control" name="registered" value="${board.registered}" readonly>	  
-		</div>
-		<div class="form-group col-1">
-			<h5>조회수</h5>	  
-			<input type="text" class="form-control" name="views" value="${board.views}" readonly>	  
-		</div>
-		<div class="form-group">
-			<h5>내용</h5>
-			<input type="text" class="form-control" name="contents" value="${board.contents}" readonly style="min-height:100px;">
-		</div>
-		<div class="form-group">
-			<label>첨부파일</label>
-			<div class="file-contents">
-				<c:forEach items="${files}" var="file">
-					<c:if test="${file.name ne ''}">
-						<div class="form-control" style="margin-top:10px; background-color:#e9ecef;">
-							<a class="filename" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.fileName}</a>
-						</div>
-					</c:if>
-				</c:forEach>
-				<c:if test="${file.name eq ''}">
-					없음
-				</c:if>
-			</div>
-		</div>
-		<div class="contents-bottom-line"></div>
+	<table class="board_display">    	
+   		<tbody>
+   			<tr>
+   				<th scope="row">글 번호</th>
+   				<td>${board.num}</td>
+   				<th scope="row">조회수</th>
+   				<td>${board.views}</td>
+			</tr>
+			<tr>
+				<th scope="row">작성자</th>
+				<td>${board.writer}</td>
+				<th scope="row">작성시간</th>
+				<td>${board.registered}</td>
+			</tr>
+			<tr>
+				<th scope="row">제목</th>
+				<td colspan="3">${board.title}</td>
+			</tr>
+			<tr>
+				<th scope="row">내용</th>
+				<td colspan="4" style="height:400px;">${board.contents}</td>
+			</tr>
+			<tr>
+				<th scope="row">첨부파일</th>
+				<td colspan="4">
+					<div class="file-contents">
+						<c:forEach items="${files}" var="file">
+							<c:if test="${file.name ne ''}">
+								<div class="form-control" style="margin-top:10px; background-color:#e9ecef;">
+									<a class="filename" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.fileName}</a>
+								</div>
+							</c:if>
+						</c:forEach>
+						<c:if test="${file.name eq ''}">
+							없음
+						</c:if>
+					</div>
+				</td>				
+			</tr>
+		</tbody>
+	</table>
+	<div class="board_display_comment">		
 		<!-- 댓글 컨텐츠 시작  -->		
 		<div class="comment" id="comment">
 			<div class="comment-contents">
@@ -151,21 +192,20 @@
 					<input type="hidden" name="board_num" value="${board.num}">
 					<input type="hidden" name="id" value="${user.id}">					
 					<div class="contents-box">
-						<textarea style="width: 1024px" rows="3" cols="30" id="contents" placeholder="댓글을 입력하세요"></textarea>
+						<textarea style="width: 50%" rows="3" cols="30" id="contents" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="button-box clearfix">
-						<button type="button" id="comment-add">
-							<h4>등록하기</h4>
-						</button>
+						<button class="btn btn-outline-secondary" type="button" id="comment-add">댓글 등록</button>
 					</div>
 				</div>
 				<!-- 댓글 게시판 -->
 				<div class="comment-board">
 					<table class="table">
 						<tr class="table-title" id="comment-title">
-							<th width="15%">작성자</th>
-							<th width="40%">내용</th>
-							<th width="25%">등록일</th>							
+							<th width="20%">작성자</th>
+							<th width="50%">내용</th>
+							<th width="20%">등록일</th>
+							<th width="10%"></th>							
 						</tr>
 						<c:if test="${commentList ne null}">
 							<c:forEach items="${commentList}" var="comment">
@@ -194,6 +234,6 @@
 	  			<a class="float-right btn-modify" href="<%=request.getContextPath()%>/board/modify?num=${board.num}&page=${cri.page}&type=${cri.type}&search=${cri.search}"><button class="btn btn-outline-secondary">수정하기</button></a>
 	  			<a class="float-right" href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-secondary">삭제하기</button></a>
 			</c:if>  			
-	    </div>	    			
+	    </div>	    
 	</div>
 </div>

@@ -83,13 +83,21 @@
   </update>
   <insert id="insertComment">
 	insert into `comment`(board_num, writer, contents)
-		values(#{board_num}, #{writer}, #{contents})
+		values(#{comment.board_num}, #{comment.writer}, #{comment.contents})
   </insert>
   <select id="selectMaxComment" resultType="int">
 	select max(num) from `comment`
   </select>
   <select id="selectComment" resultType="kr.green.tottenham.vo.CommentVO">
 	select * from `comment`
-	where num = #{num}
+	where num = #{num} and state = 'I' order by num desc
+  </select>
+  <select id="selectCountComment" resultType="int">
+	select count(*) from `comment`
+	where num = #{num} and state = 'I'
+  </select>
+  <select id="selectCommentList" resultType="kr.green.tottenham.vo.CommentVO">
+	select * from `comment`
+	where board_num = #{num} and state = 'I' order by num desc
   </select>
  </mapper>
