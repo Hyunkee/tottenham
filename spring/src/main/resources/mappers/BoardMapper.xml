@@ -73,7 +73,7 @@
   </select>
   <update id="updateBoard">
   	update board
-  		set title=#{board.title}, contents=#{board.contents}, file=#{board.file}, views=#{board.views}, valid=#{board.valid}, registered=now()
+  		set title=#{board.title}, contents=#{board.contents}, file=#{board.file}, views=#{board.views}, valid=#{board.valid}, comment_count=#{board.comment_count} ,registered=now()
  		where num=#{board.num}  
   </update> 
   <update id="updateFile">

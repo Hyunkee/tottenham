@@ -39,7 +39,8 @@ public interface BoardDAO {
 	public ArrayList<CommentVO> selectCommentList(@Param("num")Integer num);
 
 	public void updateComment(@Param("cVo")CommentVO cVo1);
-	
+
+	public CommentVO selectCountComment(CommentVO cVo);
 	
 	
 }

@@ -108,7 +108,8 @@
 						commentDelete($('.comment-delete-button').first());
 			        }
 				});
-			});			
+			});		
+			//댓글 삭제 기능
 			function commentDelete(obj){
 				//$('.comment-delete-button').first()
 				obj.click(function(){
@@ -152,7 +153,6 @@
 			        	}else{
 			        		alert("요청이 실패했습니다.");
 			        	}
-			        
 			        }
 				});
 			});

@@ -118,4 +118,20 @@ public class BoardServiceImp implements BoardService {
 		boardDao.updateComment(cVo1);
 		return true;
 	}
+
+	@Override
+	public BoardVO increaseComment(CommentVO cVo, BoardVO bVo) {		
+		int comment_count = bVo.getComment_count();
+		bVo.setComment_count(comment_count+1);
+		boardDao.updateBoard(bVo);
+		return bVo;
+		
+	}
+
+	@Override
+	public CommentVO getCommentCount(CommentVO cVo) {
+		return boardDao.selectCountComment(cVo);
+	}
+
+	
 }

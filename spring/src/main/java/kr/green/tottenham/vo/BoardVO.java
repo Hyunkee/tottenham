@@ -13,6 +13,7 @@ public class BoardVO {
 	private Date registered;
 	private Date modify_registered;
 	private int views;
+	private int comment_count;
 	
 	public int getNum() {
 		return num;
@@ -82,12 +83,18 @@ public class BoardVO {
 	}
 	public void setViews(int views) {
 		this.views = views;
+	}	
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
 	
 	@Override
 	public String toString() {
 		return "BoardVO [num=" + num + ", title=" + title + ", contents=" + contents + ", writer=" + writer + ", valid="
 				+ valid + ", file=" + file + ", registered=" + registered + ", modify_registered=" + modify_registered
-				+ ", views=" + views + "]";
+				+ ", views=" + views + ", comment_count=" + comment_count + "]";
 	}
 }
