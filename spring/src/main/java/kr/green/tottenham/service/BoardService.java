@@ -38,6 +38,8 @@ public interface BoardService {
 
 	public ArrayList<CommentVO> getCommentList(Integer num);
 
+	public boolean deleteComment(CommentVO cVo);
+
 	
 
 	

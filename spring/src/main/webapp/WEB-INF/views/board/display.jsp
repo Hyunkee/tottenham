@@ -101,16 +101,41 @@
 			        dataType:"json",
 			        //contentType:"application/json; charset=UTF-8",
 			        success : function(data){	//요청이 성공해서 보내준 값을 저장할 변수명
-			  			alert("writer : " + data.cVo.writer + ", board_num : " + data.cVo.board_num + ", contents : " + data.cVo.contents);
-			  			var str = '<tr><th style="width:30%">'+data.cVo.writer+'</th><th style="width:50%">'+data.cVo.contents+'</th><th style="width:20%">'+data.cVo.registered+'</th></tr>';
-						$('#comment-title').after(str);
-						
+			  			alert("댓글이 등록 되었습니다.");
+			        	$('.contents-box>#contents').val("");
+			  			var str = '<tr class="table-contents"><th style="width:20%">'+data.cVo.writer+'</th><th style="width:50%">'+data.cVo.contents+'</th><th style="width:20%">'+data.cVo.registered+'</th><th style="width:10%"><input type="hidden" value="'+data.cVo.num+'" name="comment_num"><button class="comment-delete-button">삭제</button></th></tr>';
+						$('#comment-title').after(str);		
+						commentDelete($('.comment-delete-button').first());
 			        }
 				});
 			});			
-
+			function commentDelete(obj){
+				//$('.comment-delete-button').first()
+				obj.click(function(){
+					$(this).parents('.table-contents').remove();
+					var writer = $('input[name=id]').val()
+					var num = $(this).siblings('input[name=comment_num]').val();
+					$.ajax({ 
+				        async:true,	//async:true - 비동기화(동시 작업 처리)	async:false - 동기화(순차적 작업 처리)
+				        type:'POST',	//POST방식으로 전송
+				        data: {"writer": writer, "num": num},
+				        url:"<%=request.getContextPath()%>/board/deleteComment",
+				        dataType:"json",
+				       	//contentType:"application/json; charset=UTF-8",
+				        success : function(data){	//요청이 성공해서 보내준 값을 저장할 변수명
+				        	if(data){
+				        		alert("댓글이 삭제 되었습니다.");
+				        	}else{
+				        		alert("요청이 실패했습니다.");
+				        	}
+				        }
+					});
+				});
+			}
 			//댓글 삭제 클릭 시
-			$('.comment-delete-button').click(function(){
+			commentDelete($('.comment-delete-button'));
+			/*
+			$('.comment-delete-button').first().click(function(){
 				$(this).parents('.table-contents').remove();
 				var writer = $('input[name=id]').val()
 				var num = $(this).siblings('input[name=comment_num]').val();
@@ -127,10 +152,12 @@
 			        	}else{
 			        		alert("요청이 실패했습니다.");
 			        	}
+			        
 			        }
 				});
 			});
-		});
+			*/
+		});		//레디
 	</script>
 </head>
 <div class="board_list_bg">
@@ -192,7 +219,7 @@
 					<input type="hidden" name="board_num" value="${board.num}">
 					<input type="hidden" name="id" value="${user.id}">					
 					<div class="contents-box">
-						<textarea style="width: 50%" rows="3" cols="30" id="contents" placeholder="댓글을 입력하세요"></textarea>
+						<textarea style="width: 50%" rows="3" cols="30" id="contents" name="contents" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="button-box clearfix">
 						<button class="btn btn-outline-secondary" type="button" id="comment-add">댓글 등록</button>
@@ -213,9 +240,9 @@
 									<th>${comment.writer}</th>
 									<th>${comment.contents}</th>
 									<th>${comment.registered}</th>
-									<th>
-										<input type="hidden" value="${comment.board_num}" name="board_num">
+									<th>										
 										<c:if test="${user.id eq comment.writer}">
+											<input type="hidden" value="${comment.num}" name="comment_num">
 											<button class="comment-delete-button">삭제</button>
 										</c:if>
 									</th>

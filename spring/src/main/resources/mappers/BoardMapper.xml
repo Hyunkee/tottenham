@@ -100,4 +100,9 @@
 	select * from `comment`
 	where board_num = #{num} and state = 'I' order by num desc
   </select>
+  <update id="updateComment">
+  	update `comment`
+		set contents = #{cVo.contents}, state = #{cVo.state}
+		where num = #{cVo.num} 
+  </update>
  </mapper>

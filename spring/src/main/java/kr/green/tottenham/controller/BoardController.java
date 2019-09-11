@@ -161,4 +161,15 @@ public class BoardController {
     	map.put("commentList", cVo1);
     	return map;
     }
+	@RequestMapping(value="/deleteComment")	//댓글 삭제
+    @ResponseBody
+    public boolean deleteComment(CommentVO cVo) {
+    	Map<Object, Object> map = new HashMap<Object, Object>();
+    	System.out.println("deleteComment cVo : " + cVo);
+    	if(boardService.deleteComment(cVo)) {
+    		return true;
+    	}
+    	return false;
+
+    }
 }
