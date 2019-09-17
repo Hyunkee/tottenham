@@ -43,6 +43,8 @@ public interface BoardService {
 	public BoardVO increaseComment(CommentVO cVo,BoardVO bVo);
 
 	public CommentVO getCommentCount(CommentVO cVo);
+
+	
 	
 
 	

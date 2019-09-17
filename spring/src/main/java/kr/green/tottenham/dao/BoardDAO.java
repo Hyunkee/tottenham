@@ -43,4 +43,6 @@ public interface BoardDAO {
 	public CommentVO selectCountComment(CommentVO cVo);
 	
 	
+	
+	
 }

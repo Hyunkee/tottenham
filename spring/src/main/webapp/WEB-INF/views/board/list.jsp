@@ -80,7 +80,7 @@
 			        <td>${board.num}</td>
 			        <td>
 			        	<a href="<%=request.getContextPath()%>/board/display?num=${board.num}&page=${pageMaker.criteria.page}&type=${pageMaker.criteria.type}&search=${pageMaker.criteria.search}">
-			        		${board.title}
+			        		${board.title}<c:if test="${board.comment_count > 0}"><span style="color:blue;">(${board.comment_count})</span></c:if>
 			        	</a>
 			        </td>
 			        <td>${board.writer}</td>

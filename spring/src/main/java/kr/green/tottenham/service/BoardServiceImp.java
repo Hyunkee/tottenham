@@ -131,7 +131,5 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public CommentVO getCommentCount(CommentVO cVo) {
 		return boardDao.selectCountComment(cVo);
-	}
-
-	
+	}	
 }

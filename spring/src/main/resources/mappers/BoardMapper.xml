@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.tottenham.dao.BoardDAO">
   <select id="selectBoardList" resultType="kr.green.tottenham.vo.BoardVO">
-    select * from board where 
+    <![CDATA[ select *,(select count(*) from tottenham.comment where 
+    comment.board_num = board.num and state = 'I') AS comment_count from board where ]]> 
     <choose>
     	<when test='valid.equals("I")|| valid.equals("D")'>
     		valid = #{valid}
@@ -73,7 +74,7 @@
   </select>
   <update id="updateBoard">
   	update board
-  		set title=#{board.title}, contents=#{board.contents}, file=#{board.file}, views=#{board.views}, valid=#{board.valid}, comment_count=#{board.comment_count} ,registered=now()
+  		set title=#{board.title}, contents=#{board.contents}, file=#{board.file}, views=#{board.views}, valid=#{board.valid}, registered=now()
  		where num=#{board.num}  
   </update> 
   <update id="updateFile">
@@ -104,5 +105,5 @@
   	update `comment`
 		set contents = #{cVo.contents}, state = #{cVo.state}
 		where num = #{cVo.num} 
-  </update>
+  </update>  
  </mapper>

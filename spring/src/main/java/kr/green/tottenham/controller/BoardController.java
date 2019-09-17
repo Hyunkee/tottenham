@@ -52,18 +52,15 @@ public class BoardController {
 	MemberService memberService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public ModelAndView boardListGet(ModelAndView mv, Criteria cri,CommentVO cVo) throws Exception{				
+	public ModelAndView boardListGet(ModelAndView mv, Model model, Criteria cri,CommentVO cVo,BoardVO board) throws Exception{				
 		String valid = "I";
-		int displayPageNum = 1;
-		CommentVO cCount = boardService.getCommentCount(cVo);
-		System.out.println(cCount);
-		ArrayList<BoardVO> list = boardService.getBoardList(cri,valid);
-		System.out.println(list);
+		int displayPageNum = 1;		
+		ArrayList<BoardVO> list = boardService.getBoardList(cri,valid);		
 		int totalCount = boardService.getTotalCount(cri,valid);		
 		PageMaker pm = pageMakerService.getPageMaker(displayPageNum, cri, totalCount);		
 	    mv.setViewName("/board/list");
 	    mv.addObject("list", list);
-	    mv.addObject("pageMaker", pm);	
+	    mv.addObject("pageMaker", pm);	    
 	    return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.GET)
