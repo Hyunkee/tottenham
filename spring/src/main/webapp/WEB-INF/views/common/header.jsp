@@ -166,10 +166,10 @@
 		</div>
 		<div class="menu_content">
 			<div class="content_link">
-				<a class="cl cl_team" href="#">Team</a>
+				<a class="cl cl_team" href="#">League</a>
 			</div>
 			<div class="content_link">
-				<a class="cl cl_team" href="#">Player</a>
+				<a class="cl cl_team" href="<%=request.getContextPath()%>/team/player">Team</a>
 			</div>
 			<div class="content_link">
 				<a class="cl cl_board" href="<%=request.getContextPath()%>/board/list">Board</a>

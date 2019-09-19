@@ -154,9 +154,7 @@ public class BoardController {
 	@RequestMapping(value="/addComment")	//댓글 등록
     @ResponseBody
     public Map<Object, Object> addComment(CommentVO cVo,BoardVO bVo) {		
-		BoardVO board = boardService.increaseComment(cVo,bVo);
-		System.out.println(board);
-		System.out.println(bVo);
+		BoardVO board = boardService.increaseComment(cVo,bVo);		
     	Map<Object, Object> map = new HashMap<Object, Object>();    	
     	CommentVO cVo1 = boardService.registerComment(cVo);
     	map.put("cVo", cVo1);
@@ -166,8 +164,7 @@ public class BoardController {
 	@RequestMapping(value="/deleteComment")	//댓글 삭제
     @ResponseBody
     public boolean deleteComment(CommentVO cVo) {
-    	Map<Object, Object> map = new HashMap<Object, Object>();
-    	System.out.println("deleteComment cVo : " + cVo);
+    	Map<Object, Object> map = new HashMap<Object, Object>();    	
     	if(boardService.deleteComment(cVo)) {
     		return true;
     	}
