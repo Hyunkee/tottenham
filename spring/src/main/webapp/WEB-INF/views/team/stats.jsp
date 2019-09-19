@@ -38,6 +38,7 @@
 		}
 		.player_info .info_text{
 			display:inline-block;
+			margin-bottom:10px;
 		}
 		.info_text>h2{
 			margin:0;
@@ -78,11 +79,24 @@
 		.detail_info tbody th, .detail_info tbody td {
 			padding:15px 0 16px 16px;
 			border-bottom:1px solid #ccc
-		} 
+		}
+		.player_stats{
+		
+		}
+		.player_stats .info_text_container{
+			text-align:center;
+			margin:20px 0 20px 0;
+		}
+		.player_stats .info_text.stats{
+			display:inline-block;
+		}
+		.player_stats .detail_info.stats{
+			margin-top:0;
+		}
 	</style>
 </head>
 <div class="team_player_bg">
-	<h1 class="tp_txt">TEAM</h1>
+	<h1 class="tp_txt">STATS</h1>
 	<div class="tp_container">				
 		<div class="tp_background">
 			<img src="<%=request.getContextPath()%>/resources/img/team_bg.jpg">			
@@ -92,22 +106,21 @@
 <div class="container">
 	<div class="player">
 		<div class="player_info">
-			<div class="info_text">
-				<h2>Player INFO</h2>
-				<div class="underline"></div>
-			</div>			
+				<div class="info_text">
+					<h2>Player INFO</h2>
+					<div class="underline"></div>
+				</div>			
 			<div class="photo_container">							
 				<div class="player_photo">
 					<img src="<%=request.getContextPath()%>/resources/img/players/${player.name}.png">
+					<h4 style="margin:10px 0 0 0">${player.name}</h4>
 				</div>
 			</div>
 			<table class="detail_info">
 				<tbody>
 					<tr>
 		   				<th scope="row">선수 번호</th>
-		   				<td>${player.back_num}</td>
-		   				<th scope="row">이름</th>
-		   				<td>${player.name}</td>
+		   				<td>${player.back_num}</td>		   				
 		   				<th scope="row">나이</th>
 		   				<td>${player.age}</td>
 		   				<th scope="row">몸무게</th>
@@ -124,5 +137,130 @@
 				</tbody>
 			</table>			
 		</div>
+		<div class="player_stats">
+			<div class="info_text_container">
+				<div class="info_text stats">
+					<h2>Stats INFO</h2>
+					<div class="underline"></div>
+				</div>
+			</div>
+			<c:forEach items="${stats}" var="player">
+				<c:if test="${player.position eq 'G'}">		
+					<div>			
+						<h2>${player.season} SEASON</h2>										
+						<table class="detail_info stats">
+							<tbody>
+								<tr>
+					   				<th scope="row">출전 시간(분)</th>
+					   				<td>${player.minutes_played}</td>
+					   				<th scope="row">득점</th>
+					   				<td>${player.goal_scored}</td>
+					   				<th scope="row">어시스트</th>
+					   				<td>${player.assists}</td>				   				
+								</tr>
+								<tr>
+									<th scope="row">클린시트</th>
+									<td>${player.g_cleanseet}</td>
+									<th scope="row">선방</th>
+									<td>${player.g_save}</td>
+									<th scope="row">PK 선방</th>
+									<td>${player.g_pkclean}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>					
+				</c:if>
+				<c:if test="${player.position eq 'D'}">
+					<div>			
+						<h2>${player.season} SEASON</h2>										
+						<table class="detail_info stats">
+							<tbody>
+								<tr>
+					   				<th scope="row">출전 시간(분)</th>
+					   				<td>${player.minutes_played}</td>
+					   				<th scope="row">득점</th>
+					   				<td>${player.goal_scored}</td>
+					   				<th scope="row">어시스트</th>
+					   				<td>${player.assists}</td>
+					   				<th scope="row">볼 처리</th>
+					   				<td>${player.clearances}</td>				   				
+								</tr>
+								<tr>
+									<th scope="row">가로채기</th>
+									<td>${player.interceptions}</td>
+									<th scope="row">태클</th>
+									<td>${player.tackles}</td>
+									<th scope="row">패스 횟수</th>
+									<td>${player.passes}</td>
+									<th scope="row">성공한 패스 횟수</th>
+									<td>${player.completed_passes}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
+				<c:if test="${player.position eq 'M'}">
+					<div>			
+						<h2>${player.season} SEASON</h2>										
+						<table class="detail_info stats">
+							<tbody>
+								<tr>
+					   				<th scope="row">출전 시간(분)</th>
+					   				<td>${player.minutes_played}</td>
+					   				<th scope="row">득점</th>
+					   				<td>${player.goal_scored}</td>
+					   				<th scope="row">어시스트</th>
+					   				<td>${player.assists}</td>
+					   				<th scope="row">볼 처리</th>
+					   				<td>${player.clearances}</td>				   				
+								</tr>
+								<tr>
+									<th scope="row">가로채기</th>
+									<td>${player.interceptions}</td>
+									<th scope="row">태클</th>
+									<td>${player.tackles}</td>
+									<th scope="row">패스 횟수</th>
+									<td>${player.passes}</td>
+									<th scope="row">성공한 패스 횟수</th>
+									<td>${player.completed_passes}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
+				<c:if test="${player.position eq 'A'}">
+					<div>			
+						<h2>${player.season} SEASON</h2>										
+						<table class="detail_info stats">
+							<tbody>
+								<tr>
+					   				<th scope="row">출전 시간(분)</th>
+					   				<td>${player.minutes_played}</td>
+					   				<th scope="row">득점</th>
+					   				<td>${player.goal_scored}</td>
+					   				<th scope="row">어시스트</th>
+					   				<td>${player.assists}</td>
+					   				<th scope="row">볼 처리</th>
+					   				<td>${player.clearances}</td>				   				
+								</tr>
+								<tr>
+									<th scope="row">가로채기</th>
+									<td>${player.interceptions}</td>
+									<th scope="row">태클</th>
+									<td>${player.tackles}</td>
+									<th scope="row">패스 횟수</th>
+									<td>${player.passes}</td>
+									<th scope="row">성공한 패스 횟수</th>
+									<td>${player.completed_passes}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+	</div>
+	<div style="margin-bottom:30px;">
+		<a href="<%=request.getContextPath()%>/team/player"><button class="btn btn-outline-secondary">선수 리스트 목록</button></a>
 	</div>
 </div>

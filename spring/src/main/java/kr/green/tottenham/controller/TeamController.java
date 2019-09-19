@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.tottenham.service.PlayersService;
 import kr.green.tottenham.vo.PlayersVO;
+import kr.green.tottenham.vo.StatsVO;
 
 @Controller
 @RequestMapping(value="/team")
@@ -29,9 +30,11 @@ public class TeamController {
 	    return mv;
 	}
 	@RequestMapping(value="/stats", method=RequestMethod.GET)
-	public ModelAndView teamPlayerStatsGet(ModelAndView mv,Model model,PlayersVO pVo,Integer num){
+	public ModelAndView teamPlayerStatsGet(ModelAndView mv,Model model,Integer num){
 		PlayersVO player = playersService.getPlayer(num);
-		System.out.println(player);
+		ArrayList <StatsVO> sVo = playersService.getPlayerStats(num);
+		System.out.println(sVo);
+		model.addAttribute("stats", sVo);
 		model.addAttribute("player", player);
 		mv.setViewName("/team/stats");
 	    return mv;

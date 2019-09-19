@@ -23,4 +23,7 @@
 	<select id="selectPlayer" resultType="kr.green.tottenham.vo.PlayersVO">
 		select * from `player` where num = #{num}
 	</select>
+	<select id="selectStatsNum" resultType="kr.green.tottenham.vo.StatsVO">		
+		select * from `stats` where player_num = #{player_num}
+	</select>	
 </mapper>
