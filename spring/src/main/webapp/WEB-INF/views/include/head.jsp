@@ -19,3 +19,6 @@
 <!-- validate -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.js"></script>
+
+<!-- tablesorter -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.tablesorter.min.js"></script>

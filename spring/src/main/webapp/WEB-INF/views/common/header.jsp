@@ -166,7 +166,7 @@
 		</div>
 		<div class="menu_content">
 			<div class="content_link">
-				<a class="cl cl_team" href="#">League</a>
+				<a class="cl cl_team" href="<%=request.getContextPath()%>/league/list">League</a>
 			</div>
 			<div class="content_link">
 				<a class="cl cl_team" href="<%=request.getContextPath()%>/team/player">Team</a>
