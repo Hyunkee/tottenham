@@ -19,14 +19,23 @@
         <put-attribute name="menu" value="/WEB-INF/views/common/menu.jsp" />        
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
-    
+    <definition name=".admin" template="/WEB-INF/views/layout/adminBaseLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/common/adminHeader.jsp" />
+        <put-attribute name="menu" value="" />        
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+    </definition>
     <!-- (1) -->    
     <definition name="/login/*" extends=".login">
       <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp" />
     </definition>
- 
+ 	<definition name="/*/*/*" extends=".admin">
+      <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
     <!-- (2) -->
    <definition name="/*/*" extends=".root">      
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
+    
+    
 </tiles-definitions>

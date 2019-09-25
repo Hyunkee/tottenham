@@ -18,4 +18,15 @@
 	    	set pw = #{pw},name = #{name}, gender = #{gender}, email = #{email}
 	    	where id = #{id};
 	</update>
+	<select id="getAllMember" resultType="kr.green.tottenham.vo.MemberVO">
+		select * from `user` order by id asc limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from `user`
+	</select>
+	<update id="updateAuthority">
+	  	update `user`
+	  		set authority = #{authority}
+	  		where id=#{id};
+	  </update>
 </mapper>

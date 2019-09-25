@@ -24,8 +24,7 @@ public class LeagueController {
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView LeagueListGet(ModelAndView mv,Model model,Integer num){
-		ArrayList <LeagueVO> list = leagueService.getLeagueList();
-		System.out.println(list);
+		ArrayList <LeagueVO> list = leagueService.getLeagueList();		
 		model.addAttribute("list", list);
 		mv.setViewName("/league/list");
 	    return mv;

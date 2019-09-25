@@ -42,6 +42,8 @@
 		class="kr.green.tottenham.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="authInterceptor" 
 		class="kr.green.tottenham.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="adminInterceptor" 
+		class="kr.green.tottenham.interceptor.AdminInterceptor"></beans:bean>
 	
 	<!-- 파일업로드 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -66,10 +68,9 @@
 	        <mapping path="/board/delete"/>
 	        <beans:ref bean="authInterceptor"/>
 		</interceptor>
-	</interceptors>
-
-
-	
-	
-	
+		<interceptor>			
+			<mapping path="/admin/**"/>
+			<beans:ref bean="adminInterceptor"/>
+		</interceptor>
+	</interceptors>	
 </beans:beans>

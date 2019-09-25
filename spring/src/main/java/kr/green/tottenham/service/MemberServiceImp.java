@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.tottenham.dao.MemberDAO;
+import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.vo.MemberVO;
 
 @Service
@@ -139,5 +140,20 @@ public class MemberServiceImp implements MemberService{
 	        System.out.println(e);
 	    }
 		
+	}
+
+	@Override
+	public ArrayList<MemberVO> getAllMember(Criteria cri) {
+		return memberDao.getAllMember(cri);
+	}
+
+	@Override
+	public int getTotalCount() {
+		return memberDao.getTotalCount();
+	}
+
+	@Override
+	public void updateAuthority(MemberVO mVo) {
+		memberDao.updateAuthority(mVo);		
 	}
 }

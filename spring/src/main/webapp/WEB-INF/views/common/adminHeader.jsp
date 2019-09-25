@@ -1,19 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<head>
-	<script>		
-		$(document).ready(function(){
-			$('.logo').click(function(){				
-				$('.navbar_logo').addClass('display-none');
-				$('.logo_menu').toggleClass('display-block');				
-			});
-			$('.menu_handle').click(function(){				
-				$('.navbar_logo').removeClass('display-none');
-				$('.logo_menu').toggleClass('display-block');				
-			});
-		});
-	</script>
+<head>	
 	<style>
 		a{
 			text-decoration:none;
@@ -151,55 +139,6 @@
 	  			</c:if>
 		  	</div>
 		</div> 
-	</nav>
-	<div class="logo">
-		<div class="logo-box">
-			<div class="logo_img">
-				<a href="#"><img src="<%=request.getContextPath()%>/resources/img/tottenham_logo.png"></a>
-			</div>
-			<div class="logo_icon">
-				<a href="#"><i class="fas fa-bars"></i><br><p class="icon_txt">MENU</p></a>
-			</div>
-		</div>	
-	</div>
+	</nav>	
 </div>
-<div class="logo_menu">
-	<div class="container">
-		<div class="menu_handle">
-			<div class="logo_img">
-				<a href="#"><img src="<%=request.getContextPath()%>/resources/img/tottenham_logo.png"></a>
-			</div>
-			<div class="logo_icon">
-				<a href="#"><i class="fas fa-times"></i></a>
-			</div>
-		</div>
-		<div class="menu_content">
-			<div class="content_link">
-				<a class="cl cl_team" href="<%=request.getContextPath()%>/league/list">League</a>
-			</div>
-			<div class="content_link">
-				<a class="cl cl_team" href="<%=request.getContextPath()%>/team/player">Team</a>
-			</div>
-			<div class="content_link">
-				<a class="cl cl_board" href="<%=request.getContextPath()%>/board/list">Board</a>
-			</div>
-			<div class="content_link">
-				<p class="cl cl_find">Find</p><a class="cl lighter cl_find_contents" href="<%=request.getContextPath()%>/member/find">ID/PW</a>
-			</div>
-			<div class="content_link">
-				<c:if test="${user eq null}">
-					<a class="cl cl_board" href="<%=request.getContextPath()%>/member/register">Register</a>
-				</c:if>	
-			</div>				
-		</div>
-		<div class="menu_content mypage_content">
-			<c:if test="${user ne null}">
-				<div class="mypage content_link">
-					<a class="cl" href="#">MY PAGE</a>					
-					<a class="cl lighter" href="<%=request.getContextPath()%>/member/modify">Modify</a>
-					<a class="cl lighter" href="#">Delete</a>
-				</div>
-			</c:if>
-		</div>
-	</div>
-</div>
+

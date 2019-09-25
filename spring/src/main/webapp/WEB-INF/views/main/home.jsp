@@ -3,6 +3,16 @@
     pageEncoding="UTF-8"%>
 <head>
 	<style>
+		.display-none{
+			display:none;
+		}
+		.display-block{
+			display:block;
+		}
+		a:hover{
+			text-decoration:none;
+			color:#0b0e1e;
+		}
 		.mainbg{
 			position:relative;
 			overflow:hidden;
@@ -56,12 +66,17 @@
 			width:512px;
 			height:400px;
 			overflow:hidden;
+			background-color:#111836;
 		}
 		.mc_img .mci_txt{
 			position:absolute;
-			top:10em;
-			left:0;
+			top:20em;
+			left:2em;
 			z-index:5;
+		}
+		.mc_img .mci_txt>a>h4{			
+			font-size:30px;
+			font-weight:800;
 		}
 		.mc_img2{
 			width:248px;
@@ -73,7 +88,7 @@
 			background: #aaa;
 		}
 		.player_list_img>img{
-			margin-top: -50px;
+			margin-top: -60px;
 			margin-left: -200px;
 		}
 		.football_img>img{
@@ -87,11 +102,17 @@
 			margin: 50px 0 70px 0;
 		}
 	</style>
+	<script>
+		$(document).ready(function(){
+			$('.mc_img').hover(function(){
+				$(this).children('.mci_txt').toggleClass('display-none','display-block');
+			})			
+		});		
+	</script>
 </head>
 <div class="clearfix">
 	<div class="mainbg">
-		<h1 class="main_txt">토트넘 홈페이지에 오신것을 환영합니다!</h1>
-		
+		<h1 class="main_txt">토트넘 홈페이지에 오신것을 환영합니다!</h1>		
 		<div class="mainbg_container">				
 			<div class="main_background">
 				<img src="<%=request.getContextPath()%>/resources/img/main_bg.jpg">			
@@ -103,8 +124,8 @@
 		  <div class="row">
 		    <div class="col-sm-6">
 		    	<div class="mc_img">
-		    		<div class="mci_txt">
-		    			<h4>게시판</h4>
+		    		<div class="mci_txt display-none">
+		    			<a href="<%=request.getContextPath()%>/league/list"><h4>LEAGUE<i class="fas fa-angle-double-right" style="margin-left:20px;"></i></h4></a>
 		    		</div>
 			      	<div class="fakeimg scale">			      		
 			      		<img src="<%=request.getContextPath()%>/resources/img/board_list.jpg" style="width: 600px; height:400px;">
@@ -113,6 +134,9 @@
 		    </div>
 		    <div class="col-sm-6">
 		    	<div class="mc_img">
+		    		<div class="mci_txt display-none">
+		    			<a href="<%=request.getContextPath()%>/team/player"><h4>PLAYERS<i class="fas fa-angle-double-right" style="margin-left:20px;"></i></h4></a>
+		    		</div>
 			    	<div class="fakeimg player_list_img scale">
 			    		<img src="<%=request.getContextPath()%>/resources/img/player_list.jpg">
 			    	</div>
@@ -120,6 +144,9 @@
 		    </div>
 		    <div class="col-sm-3">	      		      
 		      	<div class="mc_img2">
+		      		<div class="mci_txt display-none">
+		    			<h4>선수 리스트</h4>
+		    		</div>
 			    	<div class="fakeimg2 football_img scale">
 			    		<img src="<%=request.getContextPath()%>/resources/img/football.jpg">
 			    	</div>

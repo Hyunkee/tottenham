@@ -90,19 +90,29 @@
 		var rankNum = 0;
 		var backupNum = -1;
 		var backupNum2 =  -1;
+		var backupNum3 = -1;
 		$('#gcTable tbody>tr').each(function(){
 			var num = $(this).find('td').eq(index).text(); // index가 3일때 승점
-			var num2 = $(this).find('td').eq(9).text(); // 골득실			
+			var num2 = $(this).find('td').eq(9).text(); // 골득실
+			var num3 = $(this).find('td').eq(7).text(); // 득점
+			console.log(num3);
 			if(num == backupNum){							
-				if(num2 < backupNum2){					
+				if(num2 < backupNum2 || num2 > backupNum2){					
 					$(this).find('td').eq(0).html(++rankNum);					
+				}else if(num2 == backupNum2){
+					if(num3 < backupNum3 || num3 > backupNum3)
+						$(this).find('td').eq(0).html(++rankNum);
+					else{
+						$(this).find('td').eq(0).html(rankNum);
+					}
 				}else{
-					$(this).find('td').eq(0).html(rankNum);	
+					
 				}
 			}else
 				$(this).find('td').eq(0).html(++rankNum);
 			backupNum = num;
-			backupNum2 = num2;			
+			backupNum2 = num2;
+			backupNum3 = num3;
 		})		
 	}
 	
