@@ -131,8 +131,8 @@
 		  		<c:if test="${user.authority eq 'ADMIN'}">						
 			  		<a class="navbar-brand" href="<%=request.getContextPath()%>/admin/user/list">UserList</a>
 		  		</c:if>
-		  		<c:if test="${user ne null}">	  							
-		  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/mypage">${user.id}님 환영합니다!</a>
+		  		<c:if test="${user.authority eq 'ADMIN'}">	  							
+		  			<a class="navbar-brand" href="#">관리자 페이지</a>
 	  			</c:if>
 		  		<c:if test="${user ne null}">	  							
 		  			<a class="navbar-brand" href="<%=request.getContextPath()%>/member/signout">Logout</a>

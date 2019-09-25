@@ -131,5 +131,20 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public CommentVO getCommentCount(CommentVO cVo) {
 		return boardDao.selectCountComment(cVo);
+	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardListAll(Criteria cri) {
+		return boardDao.getBoardListAll(cri);
+	}
+
+	@Override
+	public int getTotalCountAll(Criteria cri) {
+		return boardDao.getTotalCountAll(cri);
+	}
+
+	@Override
+	public void updateValid(BoardVO bVo) {
+		boardDao.updateValid(bVo);
 	}	
 }

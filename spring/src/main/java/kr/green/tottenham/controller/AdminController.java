@@ -11,8 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.tottenham.pagination.Criteria;
 import kr.green.tottenham.pagination.PageMaker;
+import kr.green.tottenham.service.BoardService;
 import kr.green.tottenham.service.MemberService;
 import kr.green.tottenham.service.PageMakerService;
+import kr.green.tottenham.vo.BoardVO;
 import kr.green.tottenham.vo.MemberVO;
 
 @Controller
@@ -22,6 +24,8 @@ public class AdminController {
 	MemberService memberService;
 	@Autowired
 	PageMakerService pageMakerService;
+	@Autowired
+	BoardService boardService;
 	
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public ModelAndView adminUserListGet(ModelAndView mv, Model model,Criteria cri) {		
@@ -38,11 +42,30 @@ public class AdminController {
 		mv.setViewName("/admin/user/list");
 		return mv;
 	}
+	
 	@RequestMapping(value="/user/update", method=RequestMethod.GET)
 	public String adminUserUpdateGet(Model model,Criteria cri,MemberVO mVo) {
 		memberService.updateAuthority(mVo);
 		model.addAttribute("page", cri.getPage());
 		return "redirect:/admin/user/list";
-
+	}
+	
+	@RequestMapping(value="/board/list", method=RequestMethod.GET)
+	public ModelAndView adminBoardListGet(ModelAndView mv, Model model, Criteria cri) {
+		cri.setPerPageNum(10);
+		ArrayList<BoardVO> boardList = boardService.getBoardListAll(cri);
+		int totalCount = boardService.getTotalCountAll(cri);
+		PageMaker pm = pageMakerService.getPageMaker(5, cri, totalCount);
+		model.addAttribute("pageMaker", pm);
+		model.addAttribute("list", boardList);
+		mv.setViewName("/admin/board/list");
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/update", method=RequestMethod.GET)
+	public String adminBoardUpdateGet(Model model,Criteria cri,BoardVO bVo) {
+		boardService.updateValid(bVo);
+		model.addAttribute("page", cri.getPage());
+		return "redirect:/admin/board/list";
 	}
 }

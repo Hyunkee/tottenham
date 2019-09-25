@@ -44,6 +44,12 @@ public interface BoardService {
 
 	public CommentVO getCommentCount(CommentVO cVo);
 
+	public ArrayList<BoardVO> getBoardListAll(Criteria cri);
+
+	public int getTotalCountAll(Criteria cri);
+
+	public void updateValid(BoardVO bVo);
+
 	
 	
 

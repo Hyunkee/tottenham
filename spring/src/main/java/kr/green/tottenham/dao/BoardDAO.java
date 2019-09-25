@@ -41,6 +41,12 @@ public interface BoardDAO {
 	public void updateComment(@Param("cVo")CommentVO cVo1);
 
 	public CommentVO selectCountComment(CommentVO cVo);
+
+	public ArrayList<BoardVO> getBoardListAll(Criteria cri);
+
+	public int getTotalCountAll(Criteria cri);
+
+	public void updateValid(BoardVO bVo);
 	
 	
 	

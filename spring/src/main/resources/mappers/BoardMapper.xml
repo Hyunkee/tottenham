@@ -105,5 +105,34 @@
   	update `comment`
 		set contents = #{cVo.contents}, state = #{cVo.state}
 		where num = #{cVo.num} 
+  </update>
+  <select id="getTotalCountAll" resultType="int">
+  	select count(*) from board where 1=1
+  	<if test="type == 1">
+   		AND title like concat('%',#{search},'%')
+ 		</if>
+ 		<if test="type == 2">
+   		AND contents like concat('%',#{search},'%')
+ 		</if>
+ 		<if test="type == 3">
+   		AND writer like concat('%',#{search},'%')
+ 		</if>
+  </select>
+  <select id="getBoardListAll" resultType="kr.green.tottenham.vo.BoardVO">
+  	select * from board	where 1=1
+  		<if test="type == 1">
+    		AND title like concat('%',#{search},'%')
+  		</if>
+  		<if test="type == 2">
+    		AND contents like concat('%',#{search},'%')
+  		</if>
+  		<if test="type == 3">
+    		AND writer like concat('%',#{search},'%')
+  		</if>
+  		ORDER BY num desc
+  		limit #{pageStart}, #{perPageNum}
+  </select>
+  <update id="updateValid">
+  	update board set valid=#{valid} where num = #{num}
   </update>  
  </mapper>
