@@ -1,0 +1,9 @@
+1. github에 새로운 repository 생성 
+
+2. github과 연동되어 있는 gitKraken 아이디 로그인한 후 
+
+3. File 탭 -> Clone repo 들어간다음 GitHub.com 클릭 
+
+4. 새로 생성한 repository 클릭 한후 경로 설정 한다음 Clone the repo 클릭
+
+5. 
