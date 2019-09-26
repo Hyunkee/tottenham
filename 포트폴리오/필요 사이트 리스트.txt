@@ -14,3 +14,6 @@ fontawesome.com
 pixabay.com/ko/
 
 www.w3schools.com
+
+포트폴리오에 도움되는 팁
+https://velog.io/@chris/10-web-developer-portfolio-tips
