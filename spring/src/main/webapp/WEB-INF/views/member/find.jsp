@@ -78,8 +78,7 @@
 			        }
 			    });		
 	        });
-	        $('#findPwBtn').click(function(){
-	        	//ajax를 통해 아이디와 이메일을 서버에 전송 후 일치여부를 확인
+	        $('#findPwBtn').click(function(){	        	
 	        	var id = $('input[name=id]').val();
 	        	var email = $('#pwemail').val();
 	        	$.ajax({

@@ -122,8 +122,7 @@ public class HomeController {
 	@ResponseBody
 	public Map<Object, Object> pwfind(@RequestBody String str){
 
-	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    // 변수 id에 저장된 아이디가 회원 아이디인지 아닌지 확인하여 isMember변수에 담아 보낸다.
+	    Map<Object, Object> map = new HashMap<Object, Object>();	    
 	    System.out.println(str);
 	    String [] arr = str.split("&");
 	    String id = arr[0];
@@ -144,12 +143,9 @@ public class HomeController {
 	}
 	// 임시 비밀번호 메일로 발송
 	@RequestMapping(value = "/password/send")
-	public String passwordSend(String email,String id) {
-		//비밀번호 생성
-		String newPw = memberService.createPw();
-		//생성된 비밀번호 DB에 저장
-		memberService.modify(id, email, newPw);
-		//이메일 발송
+	public String passwordSend(String email,String id) {		
+		String newPw = memberService.createPw();		
+		memberService.modify(id, email, newPw);		
 		String title = "변경된 비밀번호입니다.";
 		String contents = "변경된 비밀번호입니다.\n"+newPw+"\n";
 		memberService.sendMail(email,title,contents);
